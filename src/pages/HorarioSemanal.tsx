@@ -142,7 +142,7 @@ const HorarioSemanal = () => {
 
         {/* Navegação */}
         <div className="flex justify-center">
-          <Button onClick={() => navigate("/resultado")} size="lg">
+          <Button onClick={() => navigate("/planilha-financeira")} size="lg">
             Continuar
           </Button>
         </div>
