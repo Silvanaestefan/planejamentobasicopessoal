@@ -188,9 +188,9 @@ const Documentos = () => {
         <div className="pt-4">
           <Button 
             className="w-full"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/organizacao-digital")}
           >
-            Finalizar
+            Continuar
           </Button>
         </div>
       </div>
