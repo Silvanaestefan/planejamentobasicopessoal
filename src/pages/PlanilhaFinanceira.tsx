@@ -95,8 +95,6 @@ const PlanilhaFinanceira = () => {
     setDocs(docs.filter(d => d.id !== id));
   };
 
-  const mesAtual = new Date().toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
-
   return (
     <div className="min-h-screen bg-primary">
       {/* Header */}
@@ -114,7 +112,6 @@ const PlanilhaFinanceira = () => {
         <p className="text-primary-foreground/80">
           Registre todas as despesas da casa e documentos pessoais.
         </p>
-        <p className="text-primary-foreground/80 capitalize">{mesAtual}</p>
       </div>
 
       {/* Resumo Financeiro */}
