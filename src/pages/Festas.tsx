@@ -1,39 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Plus, X, Pencil, Check } from "lucide-react";
-
-type FestaType = {
-  titulo: string;
-  categorias: {
-    [key: string]: string[];
-  };
-};
+import { usePlanejamento, FestaType } from "@/contexts/PlanejamentoContext";
 
 const categoriasIniciais = ["Salgados", "Doces", "Bebidas", "Decoração", "Convidados"];
 
 const Festas = () => {
   const navigate = useNavigate();
+  const { data, updateData } = usePlanejamento();
   
-  const [festas, setFestas] = useState<FestaType[]>([
-    {
-      titulo: "Aniversário",
-      categorias: {
-        "Salgados": [],
-        "Doces": [],
-        "Bebidas": [],
-        "Decoração": [],
-        "Convidados": [],
-      }
-    }
-  ]);
-
+  const [festas, setFestas] = useState<FestaType[]>(data.festas);
   const [novosItens, setNovosItens] = useState<{ [key: string]: string }>({});
   const [editandoTitulo, setEditandoTitulo] = useState<number | null>(null);
   const [tituloTemp, setTituloTemp] = useState("");
   const [novaFestaTitulo, setNovaFestaTitulo] = useState("");
+
+  // Sync with context
+  useEffect(() => {
+    updateData({ festas });
+  }, [festas]);
 
   const adicionarItem = (festaIndex: number, categoria: string) => {
     const key = `${festaIndex}-${categoria}`;

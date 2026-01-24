@@ -5,12 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowLeft, Plus, Trash2, Calendar, Home, DollarSign, Heart, BookOpen, Palette, Sparkles } from "lucide-react";
-
-interface Tarefa {
-  id: string;
-  texto: string;
-  concluida: boolean;
-}
+import { usePlanejamento, Tarefa } from "@/contexts/PlanejamentoContext";
 
 interface CategoriaRotina {
   id: number;
@@ -66,8 +61,13 @@ const categoriasRotina: CategoriaRotina[] = [
 
 const Rotina = () => {
   const navigate = useNavigate();
+  const { data, updateData } = usePlanejamento();
   
-  const inicializarTarefas = () => {
+  // Initialize tasks from context or defaults
+  const inicializarTarefas = (): Record<number, Tarefa[]> => {
+    if (Object.keys(data.tarefasRotina).length > 0) {
+      return data.tarefasRotina;
+    }
     const inicial: Record<number, Tarefa[]> = {};
     categoriasRotina.forEach(cat => {
       inicial[cat.id] = cat.tarefasPadrao.map((texto, index) => ({
@@ -83,17 +83,24 @@ const Rotina = () => {
   const [lixeira, setLixeira] = useState<Tarefa[]>([]);
   const [novaTarefa, setNovaTarefa] = useState<Record<number, string>>({});
 
+  // Save to context whenever tarefasPorCategoria changes
+  const saveTarefas = (newTarefas: Record<number, Tarefa[]>) => {
+    setTarefasPorCategoria(newTarefas);
+    updateData({ tarefasRotina: newTarefas });
+  };
+
   const adicionarTarefa = (categoriaId: number) => {
     const texto = novaTarefa[categoriaId]?.trim();
     if (!texto) return;
 
-    setTarefasPorCategoria(prev => ({
-      ...prev,
+    const newTarefas = {
+      ...tarefasPorCategoria,
       [categoriaId]: [
-        ...prev[categoriaId],
+        ...tarefasPorCategoria[categoriaId],
         { id: `${categoriaId}-${Date.now()}`, texto, concluida: false }
       ]
-    }));
+    };
+    saveTarefas(newTarefas);
     setNovaTarefa(prev => ({ ...prev, [categoriaId]: "" }));
   };
 
@@ -102,12 +109,12 @@ const Rotina = () => {
     if (!tarefa) return;
 
     if (!tarefa.concluida) {
-      // Move para lixeira
       setLixeira(prev => [...prev, { ...tarefa, concluida: true }]);
-      setTarefasPorCategoria(prev => ({
-        ...prev,
-        [categoriaId]: prev[categoriaId].filter(t => t.id !== tarefaId)
-      }));
+      const newTarefas = {
+        ...tarefasPorCategoria,
+        [categoriaId]: tarefasPorCategoria[categoriaId].filter(t => t.id !== tarefaId)
+      };
+      saveTarefas(newTarefas);
     }
   };
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { usePlanejamento } from "@/contexts/PlanejamentoContext";
 
 type MesesType = {
   [key: string]: string[];
@@ -15,24 +16,16 @@ type MesesType = {
 
 const Anual = () => {
   const navigate = useNavigate();
+  const { data, updateData } = usePlanejamento();
   
-  const [meses, setMeses] = useState<MesesType>({
-    "Janeiro": ["DPVAT"],
-    "Fevereiro": ["Carnaval", "IPTU", "Taxa de Bombeiro"],
-    "Março": ["Imposto de Renda"],
-    "Abril": [],
-    "Maio": [],
-    "Junho": [],
-    "Julho": [],
-    "Agosto": [],
-    "Setembro": [],
-    "Outubro": [],
-    "Novembro": [],
-    "Dezembro": [],
-  });
-
+  const [meses, setMeses] = useState<MesesType>(data.planejamentoAnual);
   const [openMeses, setOpenMeses] = useState<string[]>(["Janeiro", "Fevereiro", "Março"]);
   const [novosItens, setNovosItens] = useState<{ [key: string]: string }>({});
+
+  // Sync with context
+  useEffect(() => {
+    updateData({ planejamentoAnual: meses });
+  }, [meses]);
 
   const toggleMes = (mes: string) => {
     setOpenMeses(prev => 

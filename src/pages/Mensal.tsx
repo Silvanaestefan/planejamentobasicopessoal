@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Plus, X } from "lucide-react";
+import { usePlanejamento } from "@/contexts/PlanejamentoContext";
 
 type ListaCompras = {
   [categoria: string]: string[];
@@ -31,14 +32,15 @@ const tarefasMensais = [
 
 const Mensal = () => {
   const navigate = useNavigate();
-  const [listas, setListas] = useState<ListaCompras>(() => {
-    const initial: ListaCompras = {};
-    categoriasCompras.forEach(cat => {
-      initial[cat] = [];
-    });
-    return initial;
-  });
+  const { data, updateData } = usePlanejamento();
+
+  const [listas, setListas] = useState<ListaCompras>(data.listasCompras);
   const [novoItem, setNovoItem] = useState<Record<string, string>>({});
+
+  // Sync with context
+  useEffect(() => {
+    updateData({ listasCompras: listas });
+  }, [listas]);
 
   const adicionarItem = (categoria: string) => {
     const item = novoItem[categoria]?.trim();
@@ -110,7 +112,7 @@ const Mensal = () => {
                   
                   {/* Lista de itens */}
                   <ul className="space-y-1 mb-2">
-                    {listas[categoria].map((item, index) => (
+                    {listas[categoria]?.map((item, index) => (
                       <li 
                         key={index} 
                         className="flex items-center justify-between text-sm bg-muted/50 rounded px-3 py-1.5"

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, DollarSign, Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -12,38 +12,32 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-interface ItemFinanceiro {
-  id: string;
-  nome: string;
-  valor: number;
-}
-
-interface Documento {
-  id: string;
-  nome: string;
-  informacao: string;
-}
+import { usePlanejamento, ItemFinanceiro, Documento } from "@/contexts/PlanejamentoContext";
 
 const PlanilhaFinanceira = () => {
+  const navigate = useNavigate();
+  const { data, updateData } = usePlanejamento();
+
   // Estado para despesas mensais
-  const [despesas, setDespesas] = useState<ItemFinanceiro[]>([
-    { id: "1", nome: "Recebimento", valor: 0 },
-    { id: "2", nome: "Reserva de segurança", valor: 0 },
-  ]);
+  const [despesas, setDespesas] = useState<ItemFinanceiro[]>(data.despesas);
   const [novaDespesa, setNovaDespesa] = useState({ nome: "", valor: "" });
 
   // Estado para documentos pessoais
-  const [docsPessoais, setDocsPessoais] = useState<Documento[]>([]);
+  const [docsPessoais, setDocsPessoais] = useState<Documento[]>(data.docsPessoais);
   const [novoDocPessoal, setNovoDocPessoal] = useState({ nome: "", informacao: "" });
 
   // Estado para documentos da residência
-  const [docsResidencia, setDocsResidencia] = useState<Documento[]>([]);
+  const [docsResidencia, setDocsResidencia] = useState<Documento[]>(data.docsResidencia);
   const [novoDocResidencia, setNovoDocResidencia] = useState({ nome: "", informacao: "" });
 
   // Estado para documentos de imóveis
-  const [docsImoveis, setDocsImoveis] = useState<Documento[]>([]);
+  const [docsImoveis, setDocsImoveis] = useState<Documento[]>(data.docsImoveis);
   const [novoDocImovel, setNovoDocImovel] = useState({ nome: "", informacao: "" });
+
+  // Sync with context
+  useEffect(() => {
+    updateData({ despesas, docsPessoais, docsResidencia, docsImoveis });
+  }, [despesas, docsPessoais, docsResidencia, docsImoveis]);
 
   // Cálculos financeiros
   const receitas = despesas.find(d => d.nome === "Recebimento")?.valor || 0;
@@ -94,8 +88,6 @@ const PlanilhaFinanceira = () => {
   ) => {
     setDocs(docs.filter(d => d.id !== id));
   };
-
-  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-primary">
