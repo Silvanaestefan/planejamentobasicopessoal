@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { PlanejamentoProvider } from "@/contexts/PlanejamentoContext";
 import Index from "./pages/Index";
 import Comecar from "./pages/Comecar";
 import Pilares from "./pages/Pilares";
@@ -15,6 +16,7 @@ import Anual from "./pages/Anual";
 import Festas from "./pages/Festas";
 import Documentos from "./pages/Documentos";
 import OrganizacaoDigital from "./pages/OrganizacaoDigital";
+import ExportarPDF from "./pages/ExportarPDF";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,26 +24,29 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/comecar" element={<Comecar />} />
-          <Route path="/pilares" element={<Pilares />} />
-          <Route path="/metas" element={<Metas />} />
-          <Route path="/rotina" element={<Rotina />} />
-          <Route path="/horario-semanal" element={<HorarioSemanal />} />
-          <Route path="/planilha-financeira" element={<PlanilhaFinanceira />} />
-          <Route path="/mensal" element={<Mensal />} />
-          <Route path="/anual" element={<Anual />} />
-          <Route path="/festas" element={<Festas />} />
-          <Route path="/documentos" element={<Documentos />} />
-          <Route path="/organizacao-digital" element={<OrganizacaoDigital />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <PlanejamentoProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/comecar" element={<Comecar />} />
+            <Route path="/pilares" element={<Pilares />} />
+            <Route path="/metas" element={<Metas />} />
+            <Route path="/rotina" element={<Rotina />} />
+            <Route path="/horario-semanal" element={<HorarioSemanal />} />
+            <Route path="/planilha-financeira" element={<PlanilhaFinanceira />} />
+            <Route path="/mensal" element={<Mensal />} />
+            <Route path="/anual" element={<Anual />} />
+            <Route path="/festas" element={<Festas />} />
+            <Route path="/documentos" element={<Documentos />} />
+            <Route path="/organizacao-digital" element={<OrganizacaoDigital />} />
+            <Route path="/exportar-pdf" element={<ExportarPDF />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </PlanejamentoProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

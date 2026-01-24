@@ -1,9 +1,9 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Plus, Heart, Home, BookOpen, DollarSign, Briefcase, Leaf, Users, Sparkles, X } from "lucide-react";
 import { IconBox } from "@/components/ui/icon-box";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { usePlanejamento } from "@/contexts/PlanejamentoContext";
 
 const pilares = [
   { id: 1, nome: "Saúde e Cuidados Pessoais", icon: Heart },
@@ -16,37 +16,33 @@ const pilares = [
   { id: 8, nome: "Espiritual", icon: Sparkles },
 ];
 
-type MetasPorPilar = Record<number, string[]>;
-
 const Metas = () => {
   const navigate = useNavigate();
-  const [metasPorPilar, setMetasPorPilar] = useState<MetasPorPilar>(() => {
-    const inicial: MetasPorPilar = {};
-    pilares.forEach((p) => {
-      inicial[p.id] = [""];
-    });
-    return inicial;
-  });
+  const { data, updateData } = usePlanejamento();
+  const metasPorPilar = data.metasPorPilar;
 
   const handleMetaChange = (pilarId: number, index: number, value: string) => {
-    setMetasPorPilar((prev) => ({
-      ...prev,
-      [pilarId]: prev[pilarId].map((meta, i) => (i === index ? value : meta)),
-    }));
+    const newMetas = {
+      ...metasPorPilar,
+      [pilarId]: metasPorPilar[pilarId].map((meta, i) => (i === index ? value : meta)),
+    };
+    updateData({ metasPorPilar: newMetas });
   };
 
   const adicionarMeta = (pilarId: number) => {
-    setMetasPorPilar((prev) => ({
-      ...prev,
-      [pilarId]: [...prev[pilarId], ""],
-    }));
+    const newMetas = {
+      ...metasPorPilar,
+      [pilarId]: [...metasPorPilar[pilarId], ""],
+    };
+    updateData({ metasPorPilar: newMetas });
   };
 
   const removerMeta = (pilarId: number, index: number) => {
-    setMetasPorPilar((prev) => ({
-      ...prev,
-      [pilarId]: prev[pilarId].filter((_, i) => i !== index),
-    }));
+    const newMetas = {
+      ...metasPorPilar,
+      [pilarId]: metasPorPilar[pilarId].filter((_, i) => i !== index),
+    };
+    updateData({ metasPorPilar: newMetas });
   };
 
   return (
@@ -99,7 +95,7 @@ const Metas = () => {
 
                 {/* Lista de Metas */}
                 <div className="space-y-2">
-                  {metasPorPilar[pilar.id].map((meta, index) => (
+                  {metasPorPilar[pilar.id]?.map((meta, index) => (
                     <div key={index} className="flex items-center gap-2">
                       <Input
                         placeholder={`Meta ${index + 1}...`}

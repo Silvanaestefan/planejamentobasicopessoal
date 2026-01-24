@@ -1,9 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { StarRating } from "@/components/StarRating";
 import { ArrowLeft, ArrowRight, Heart, Home, GraduationCap, Wallet, Briefcase, Leaf, Users, Sparkles } from "lucide-react";
-import { useState } from "react";
-// Nota: O botão "Continuar" navega para /metas
 import { useNavigate } from "react-router-dom";
+import { usePlanejamento } from "@/contexts/PlanejamentoContext";
 
 const pilares = [
   { id: 1, nome: "Saúde e Cuidados Pessoais", icon: Heart },
@@ -18,10 +17,11 @@ const pilares = [
 
 const Pilares = () => {
   const navigate = useNavigate();
-  const [avaliacoes, setAvaliacoes] = useState<Record<number, number>>({});
+  const { data, updateData } = usePlanejamento();
+  const avaliacoes = data.avaliacoesPilares;
 
   const handleRating = (pilarId: number, value: number) => {
-    setAvaliacoes((prev) => ({ ...prev, [pilarId]: value }));
+    updateData({ avaliacoesPilares: { ...avaliacoes, [pilarId]: value } });
   };
 
   const totalAvaliacoes = Object.values(avaliacoes);

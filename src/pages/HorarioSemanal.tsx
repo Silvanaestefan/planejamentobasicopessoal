@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ArrowLeft, Calendar, Plus, X } from "lucide-react";
+import { usePlanejamento } from "@/contexts/PlanejamentoContext";
 
 const diasSemana = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
 const periodos = [
@@ -16,9 +17,15 @@ type TarefasPorCelula = Record<string, string[]>;
 
 const HorarioSemanal = () => {
   const navigate = useNavigate();
+  const { data, updateData } = usePlanejamento();
   
-  const [tarefas, setTarefas] = useState<TarefasPorCelula>({});
+  const [tarefas, setTarefas] = useState<TarefasPorCelula>(data.horarioSemanal || {});
   const [novaTarefa, setNovaTarefa] = useState<Record<string, string>>({});
+
+  // Sync with context
+  useEffect(() => {
+    updateData({ horarioSemanal: tarefas });
+  }, [tarefas]);
 
   const getCelulaKey = (dia: string, periodo: string) => `${dia}-${periodo}`;
 

@@ -149,8 +149,8 @@ const OrganizacaoDigital = () => {
             <ArrowLeft className="mr-2 h-4 w-4" />
             Voltar
           </Button>
-          <Button onClick={() => navigate("/")}>
-            Finalizar
+          <Button onClick={() => navigate("/exportar-pdf")}>
+            Continuar
           </Button>
         </div>
       </div>
