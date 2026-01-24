@@ -13,6 +13,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { usePlanejamento, ItemFinanceiro, Documento } from "@/contexts/PlanejamentoContext";
+import NavigationMenu from "@/components/NavigationMenu";
 
 const PlanilhaFinanceira = () => {
   const navigate = useNavigate();
@@ -90,7 +91,7 @@ const PlanilhaFinanceira = () => {
   };
 
   return (
-    <div className="min-h-screen bg-primary">
+    <div className="min-h-screen bg-primary pb-20">
       {/* Header */}
       <div className="p-4">
         <Link to="/horario-semanal" className="inline-flex items-center text-primary-foreground hover:underline">
@@ -399,6 +400,7 @@ const PlanilhaFinanceira = () => {
           </div>
         </div>
       </div>
+      <NavigationMenu />
     </div>
   );
 };

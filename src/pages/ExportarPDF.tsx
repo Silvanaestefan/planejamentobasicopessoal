@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePlanejamento } from "@/contexts/PlanejamentoContext";
 import { ArrowLeft, FileDown, Heart, Home, GraduationCap, Wallet, Briefcase, Leaf, Users, Sparkles } from "lucide-react";
+import NavigationMenu from "@/components/NavigationMenu";
 
 const pilaresInfo = [
   { id: 1, nome: "Saúde e Cuidados Pessoais", icon: Heart },
@@ -45,7 +46,7 @@ const ExportarPDF = () => {
   const hasFestas = data.festas.some(f => Object.values(f.categorias).some(cat => cat.length > 0));
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-20">
       {/* Header - hidden in print */}
       <div className="bg-primary text-primary-foreground p-6 print:hidden">
         <div className="max-w-4xl mx-auto">
@@ -408,6 +409,7 @@ const ExportarPDF = () => {
           .print\\:space-y-4 > * + * { margin-top: 1rem !important; }
         }
       `}</style>
+      <NavigationMenu />
     </div>
   );
 };

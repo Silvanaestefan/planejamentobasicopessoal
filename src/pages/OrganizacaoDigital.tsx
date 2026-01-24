@@ -1,13 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Smartphone, Monitor, Calendar, FileText, Bookmark, Globe } from "lucide-react";
+import { ArrowLeft, Smartphone, Monitor, Calendar, FileText, Bookmark } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import NavigationMenu from "@/components/NavigationMenu";
 
 const OrganizacaoDigital = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-20">
       {/* Header */}
       <div className="bg-primary text-primary-foreground p-6 text-center">
         <div className="flex justify-center mb-4">
@@ -154,6 +155,7 @@ const OrganizacaoDigital = () => {
           </Button>
         </div>
       </div>
+      <NavigationMenu />
     </div>
   );
 };

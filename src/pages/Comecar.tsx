@@ -2,12 +2,13 @@ import { Button } from "@/components/ui/button";
 import { IconBox } from "@/components/ui/icon-box";
 import { ArrowRight, CalendarCheck } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import NavigationMenu from "@/components/NavigationMenu";
 
 const Comecar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6 py-12">
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6 py-12 pb-24">
       <div className="max-w-2xl w-full flex flex-col items-center text-center space-y-8">
         {/* Icon */}
         <IconBox>
@@ -39,6 +40,7 @@ const Comecar = () => {
           <ArrowRight className="w-5 h-5" />
         </Button>
       </div>
+      <NavigationMenu />
     </div>
   );
 };

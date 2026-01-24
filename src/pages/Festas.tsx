@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Plus, X, Pencil, Check } from "lucide-react";
 import { usePlanejamento, FestaType } from "@/contexts/PlanejamentoContext";
+import NavigationMenu from "@/components/NavigationMenu";
 
 const categoriasIniciais = ["Salgados", "Doces", "Bebidas", "Decoração", "Convidados"];
 
@@ -94,7 +95,7 @@ const Festas = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-20">
       {/* Header */}
       <div className="bg-primary text-primary-foreground p-6 mb-6">
         <div className="max-w-4xl mx-auto">
@@ -258,6 +259,7 @@ const Festas = () => {
           </Button>
         </div>
       </div>
+      <NavigationMenu />
     </div>
   );
 };

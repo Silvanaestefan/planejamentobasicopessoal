@@ -4,6 +4,7 @@ import { IconBox } from "@/components/ui/icon-box";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { usePlanejamento } from "@/contexts/PlanejamentoContext";
+import NavigationMenu from "@/components/NavigationMenu";
 
 const pilares = [
   { id: 1, nome: "Saúde e Cuidados Pessoais", icon: Heart },
@@ -46,7 +47,7 @@ const Metas = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary/5 to-background">
+    <div className="min-h-screen bg-gradient-to-b from-primary/5 to-background pb-20">
       {/* Header */}
       <header className="flex items-center justify-between px-4 py-4 bg-background/80 backdrop-blur-sm border-b border-border">
         <button
@@ -140,6 +141,7 @@ const Metas = () => {
           </Button>
         </div>
       </main>
+      <NavigationMenu />
     </div>
   );
 };

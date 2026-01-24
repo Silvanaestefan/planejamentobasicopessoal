@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowLeft, Plus, Trash2, Calendar, Home, DollarSign, Heart, BookOpen, Palette, Sparkles } from "lucide-react";
 import { usePlanejamento, Tarefa } from "@/contexts/PlanejamentoContext";
+import NavigationMenu from "@/components/NavigationMenu";
 
 interface CategoriaRotina {
   id: number;
@@ -127,7 +128,7 @@ const Rotina = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-4">
+    <div className="min-h-screen bg-background p-4 pb-24">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="flex items-center gap-4 mb-6">
@@ -239,6 +240,7 @@ const Rotina = () => {
           </Button>
         </div>
       </div>
+      <NavigationMenu />
     </div>
   );
 };

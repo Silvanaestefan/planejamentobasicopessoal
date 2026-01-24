@@ -9,6 +9,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { usePlanejamento } from "@/contexts/PlanejamentoContext";
+import NavigationMenu from "@/components/NavigationMenu";
 
 type MesesType = {
   [key: string]: string[];
@@ -60,7 +61,7 @@ const Anual = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-20">
       {/* Header */}
       <div className="bg-primary text-primary-foreground p-6 mb-6">
         <div className="max-w-4xl mx-auto">
@@ -166,6 +167,7 @@ const Anual = () => {
           </Button>
         </div>
       </div>
+      <NavigationMenu />
     </div>
   );
 };

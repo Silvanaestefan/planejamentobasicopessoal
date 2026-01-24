@@ -3,6 +3,7 @@ import { StarRating } from "@/components/StarRating";
 import { ArrowLeft, ArrowRight, Heart, Home, GraduationCap, Wallet, Briefcase, Leaf, Users, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { usePlanejamento } from "@/contexts/PlanejamentoContext";
+import NavigationMenu from "@/components/NavigationMenu";
 
 const pilares = [
   { id: 1, nome: "Saúde e Cuidados Pessoais", icon: Heart },
@@ -31,7 +32,7 @@ const Pilares = () => {
       : "0";
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col pb-20">
       {/* Header */}
       <header className="bg-primary text-primary-foreground py-4 px-6">
         <h1 className="text-center text-xl font-semibold">Planejamento Básico Pessoal</h1>
@@ -104,6 +105,7 @@ const Pilares = () => {
           </div>
         </div>
       </div>
+      <NavigationMenu />
     </div>
   );
 };
