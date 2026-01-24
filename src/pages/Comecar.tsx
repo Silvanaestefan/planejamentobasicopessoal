@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { IconBox } from "@/components/ui/icon-box";
+import { ArrowRight, CalendarCheck } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Comecar = () => {
@@ -7,22 +8,35 @@ const Comecar = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6 py-12">
-      <div className="max-w-lg w-full text-center space-y-8">
-        <h1 className="text-3xl md:text-4xl font-bold text-foreground">
-          Próxima Etapa
-        </h1>
-        <p className="text-lg text-muted-foreground">
-          Esta é a página seguinte do seu planejamento pessoal.
-        </p>
+      <div className="max-w-2xl w-full flex flex-col items-center text-center space-y-8">
+        {/* Icon */}
+        <IconBox>
+          <CalendarCheck className="w-10 h-10 text-primary" />
+        </IconBox>
 
+        {/* Title */}
+        <h1 className="text-3xl md:text-4xl font-bold text-foreground">
+          Sobre o <span className="text-primary">Método</span>
+        </h1>
+
+        {/* Card */}
+        <div className="bg-card rounded-2xl shadow-lg p-8 max-w-xl w-full">
+          <p className="text-foreground/80 text-lg leading-relaxed">
+            O Planejamento Básico Pessoal é organizado em{" "}
+            <span className="text-primary font-semibold">8 pilares da vida</span>, que
+            representam as principais áreas que sustentam uma vida equilibrada,
+            funcional e consciente.
+          </p>
+        </div>
+
+        {/* CTA Button */}
         <Button
-          variant="outline"
           size="lg"
-          onClick={() => navigate("/")}
-          className="gap-2"
+          onClick={() => navigate("/pilares")}
+          className="px-10 py-6 text-lg font-semibold gap-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
         >
-          <ArrowLeft className="w-5 h-5" />
-          Voltar ao início
+          Continuar
+          <ArrowRight className="w-5 h-5" />
         </Button>
       </div>
     </div>
