@@ -24,7 +24,7 @@ const categoriasCompras = [
 const tarefasMensais = [
   "Organizar armários.",
   "Fazer listas de compras.",
-  "Agendar Consultas.",
+  "Agendar consultas.",
   "Receber o salário e pagar os boletos.",
   "Fazer as compras mensais."
 ];
