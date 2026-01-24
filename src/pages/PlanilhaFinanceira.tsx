@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, DollarSign, Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -94,6 +94,8 @@ const PlanilhaFinanceira = () => {
   ) => {
     setDocs(docs.filter(d => d.id !== id));
   };
+
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-primary">
@@ -399,7 +401,7 @@ const PlanilhaFinanceira = () => {
 
           {/* Botão Continuar */}
           <div className="flex justify-center pt-6 pb-12">
-            <Button size="lg" className="px-12">
+            <Button size="lg" className="px-12" onClick={() => navigate("/mensal")}>
               Continuar
             </Button>
           </div>
