@@ -67,22 +67,27 @@ const Anual = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center gap-4 mb-8">
-          <Button 
-            variant="ghost" 
-            size="icon"
-            onClick={() => navigate("/mensal")}
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-          <div>
-            <p className="text-sm text-muted-foreground">Página 9</p>
-            <h1 className="text-3xl font-bold text-foreground">Planejamento Anual</h1>
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <div className="bg-primary text-primary-foreground p-6 mb-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center gap-4 mb-2">
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={() => navigate("/mensal")}
+              className="text-primary-foreground hover:bg-primary-foreground/20"
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </Button>
+            <div>
+              <p className="text-sm text-primary-foreground/80">Página 9</p>
+              <h1 className="text-3xl font-bold">Planejamento Anual</h1>
+            </div>
           </div>
         </div>
+      </div>
+      <div className="max-w-4xl mx-auto px-6">
 
         {/* Lista de Meses */}
         <div className="space-y-3">
