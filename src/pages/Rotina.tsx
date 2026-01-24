@@ -227,7 +227,7 @@ const Rotina = () => {
 
         {/* Navegação */}
         <div className="flex justify-center mt-8">
-          <Button onClick={() => navigate("/resultado")} size="lg">
+          <Button onClick={() => navigate("/horario-semanal")} size="lg">
             Continuar
           </Button>
         </div>
