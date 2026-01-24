@@ -2,6 +2,7 @@ import { ArrowLeft, FileText, Smartphone, FolderOpen, Archive } from "lucide-rea
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import NavigationMenu from "@/components/NavigationMenu";
 
 const Documentos = () => {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ const Documentos = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary/5 to-background">
+    <div className="min-h-screen bg-gradient-to-b from-primary/5 to-background pb-20">
       {/* Header */}
       <div className="bg-primary text-primary-foreground p-6">
         <div className="max-w-2xl mx-auto">
@@ -194,6 +195,7 @@ const Documentos = () => {
           </Button>
         </div>
       </div>
+      <NavigationMenu />
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Plus, X } from "lucide-react";
 import { usePlanejamento } from "@/contexts/PlanejamentoContext";
+import NavigationMenu from "@/components/NavigationMenu";
 
 type ListaCompras = {
   [categoria: string]: string[];
@@ -61,7 +62,7 @@ const Mensal = () => {
   };
 
   return (
-    <div className="min-h-screen bg-primary">
+    <div className="min-h-screen bg-primary pb-20">
       {/* Header */}
       <div className="bg-primary text-primary-foreground p-6">
         <div className="flex items-center gap-4 mb-4">
@@ -172,6 +173,7 @@ const Mensal = () => {
           </Button>
         </div>
       </div>
+      <NavigationMenu />
     </div>
   );
 };

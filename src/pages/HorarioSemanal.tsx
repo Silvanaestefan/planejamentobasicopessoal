@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ArrowLeft, Calendar, Plus, X } from "lucide-react";
 import { usePlanejamento } from "@/contexts/PlanejamentoContext";
+import NavigationMenu from "@/components/NavigationMenu";
 
 const diasSemana = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
 const periodos = [
@@ -50,7 +51,7 @@ const HorarioSemanal = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-4">
+    <div className="min-h-screen bg-background p-4 pb-24">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center gap-4 mb-6">
@@ -154,6 +155,7 @@ const HorarioSemanal = () => {
           </Button>
         </div>
       </div>
+      <NavigationMenu />
     </div>
   );
 };
