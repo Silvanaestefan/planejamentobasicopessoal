@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { StarRating } from "@/components/StarRating";
 import { ArrowLeft, ArrowRight, Heart, Home, GraduationCap, Wallet, Briefcase, Leaf, Users, Sparkles } from "lucide-react";
 import { useState } from "react";
+// Nota: O botão "Continuar" navega para /metas
 import { useNavigate } from "react-router-dom";
 
 const pilares = [
@@ -94,7 +95,7 @@ const Pilares = () => {
           <div className="flex justify-center pt-4">
             <Button
               size="lg"
-              onClick={() => navigate("/resultado")}
+              onClick={() => navigate("/metas")}
               className="px-10 py-6 text-lg font-semibold gap-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
             >
               Continuar
