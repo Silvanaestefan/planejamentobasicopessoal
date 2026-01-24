@@ -101,33 +101,33 @@ const Mensal = () => {
             <CardTitle className="text-lg">Listas de Compras</CardTitle>
           </CardHeader>
           <CardContent className="p-4">
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="space-y-4">
               {categoriasCompras.map((categoria) => (
-                <div key={categoria} className="border rounded-lg p-3 bg-muted/30">
+                <div key={categoria} className="border-b pb-4 last:border-b-0">
                   <h3 className="font-semibold text-sm mb-2 text-primary">
                     {categoria}
                   </h3>
                   
                   {/* Lista de itens */}
-                  <ul className="space-y-1 mb-2 min-h-[40px]">
+                  <div className="flex flex-wrap gap-2 mb-2">
                     {listas[categoria].map((item, index) => (
-                      <li 
+                      <span 
                         key={index} 
-                        className="flex items-center justify-between text-sm bg-background rounded px-2 py-1"
+                        className="inline-flex items-center text-sm bg-muted rounded-full px-3 py-1"
                       >
-                        <span>{item}</span>
+                        {item}
                         <button
                           onClick={() => removerItem(categoria, index)}
                           className="text-destructive hover:text-destructive/80 ml-2"
                         >
                           <X className="h-3 w-3" />
                         </button>
-                      </li>
+                      </span>
                     ))}
-                  </ul>
+                  </div>
                   
                   {/* Input para adicionar */}
-                  <div className="flex gap-1">
+                  <div className="flex gap-2 max-w-md">
                     <Input
                       value={novoItem[categoria] || ""}
                       onChange={(e) => setNovoItem(prev => ({ 
