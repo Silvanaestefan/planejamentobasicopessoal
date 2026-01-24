@@ -109,22 +109,22 @@ const Mensal = () => {
                   </h3>
                   
                   {/* Lista de itens */}
-                  <div className="flex flex-wrap gap-2 mb-2">
+                  <ul className="space-y-1 mb-2">
                     {listas[categoria].map((item, index) => (
-                      <span 
+                      <li 
                         key={index} 
-                        className="inline-flex items-center text-sm bg-muted rounded-full px-3 py-1"
+                        className="flex items-center justify-between text-sm bg-muted/50 rounded px-3 py-1.5"
                       >
-                        {item}
+                        <span>{item}</span>
                         <button
                           onClick={() => removerItem(categoria, index)}
                           className="text-destructive hover:text-destructive/80 ml-2"
                         >
                           <X className="h-3 w-3" />
                         </button>
-                      </span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                   
                   {/* Input para adicionar */}
                   <div className="flex gap-2 max-w-md">
