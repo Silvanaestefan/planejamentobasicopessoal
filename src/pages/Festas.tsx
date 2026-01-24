@@ -265,8 +265,8 @@ const Festas = () => {
           >
             Voltar
           </Button>
-          <Button onClick={() => navigate("/")}>
-            Finalizar
+          <Button onClick={() => navigate("/documentos")}>
+            Continuar
           </Button>
         </div>
       </div>
