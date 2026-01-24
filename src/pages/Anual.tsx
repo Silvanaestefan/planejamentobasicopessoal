@@ -159,6 +159,19 @@ const Anual = () => {
             </Collapsible>
           ))}
         </div>
+
+        {/* Navegação */}
+        <div className="flex justify-between pt-6 pb-6">
+          <Button
+            variant="outline"
+            onClick={() => navigate("/mensal")}
+          >
+            Voltar
+          </Button>
+          <Button onClick={() => navigate("/festas")}>
+            Continuar
+          </Button>
+        </div>
       </div>
     </div>
   );
