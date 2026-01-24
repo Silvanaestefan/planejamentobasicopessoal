@@ -11,6 +11,7 @@ import Rotina from "./pages/Rotina";
 import HorarioSemanal from "./pages/HorarioSemanal";
 import PlanilhaFinanceira from "./pages/PlanilhaFinanceira";
 import Mensal from "./pages/Mensal";
+import Anual from "./pages/Anual";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/horario-semanal" element={<HorarioSemanal />} />
           <Route path="/planilha-financeira" element={<PlanilhaFinanceira />} />
           <Route path="/mensal" element={<Mensal />} />
+          <Route path="/anual" element={<Anual />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
