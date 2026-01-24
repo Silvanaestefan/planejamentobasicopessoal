@@ -137,7 +137,7 @@ const Metas = () => {
         {/* Botão Continuar */}
         <div className="mt-8">
           <Button
-            onClick={() => navigate("/resultado")}
+            onClick={() => navigate("/rotina")}
             className="w-full py-6 text-lg font-semibold"
           >
             Continuar

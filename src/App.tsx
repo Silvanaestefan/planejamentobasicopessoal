@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Comecar from "./pages/Comecar";
 import Pilares from "./pages/Pilares";
 import Metas from "./pages/Metas";
+import Rotina from "./pages/Rotina";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/comecar" element={<Comecar />} />
           <Route path="/pilares" element={<Pilares />} />
           <Route path="/metas" element={<Metas />} />
+          <Route path="/rotina" element={<Rotina />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
