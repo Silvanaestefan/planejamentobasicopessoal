@@ -10,6 +10,7 @@ import Metas from "./pages/Metas";
 import Rotina from "./pages/Rotina";
 import HorarioSemanal from "./pages/HorarioSemanal";
 import PlanilhaFinanceira from "./pages/PlanilhaFinanceira";
+import Mensal from "./pages/Mensal";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/rotina" element={<Rotina />} />
           <Route path="/horario-semanal" element={<HorarioSemanal />} />
           <Route path="/planilha-financeira" element={<PlanilhaFinanceira />} />
+          <Route path="/mensal" element={<Mensal />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
