@@ -56,6 +56,7 @@ const categoriasRotina: CategoriaRotina[] = [
   {
     id: 6,
     nome: "Lazer",
+    descricao: "(Artesanato, leitura, artes)",
     icon: <Palette className="h-5 w-5" />,
     tarefasPadrao: ["Artesanato", "Leitura", "Cuidar de plantas"]
   },
