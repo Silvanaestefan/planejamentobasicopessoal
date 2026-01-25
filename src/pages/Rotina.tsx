@@ -42,6 +42,7 @@ const categoriasRotina: CategoriaRotina[] = [
   {
     id: 4,
     nome: "Cuidados Pessoais",
+    descricao: "(Exercício físico)",
     icon: <Heart className="h-5 w-5" />,
     tarefasPadrao: ["Exercício físico"]
   },
