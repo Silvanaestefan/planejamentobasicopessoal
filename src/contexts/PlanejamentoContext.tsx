@@ -33,6 +33,8 @@ export interface PlanejamentoData {
   metasPorPilar: Record<number, string[]>;
   // Rotina por categoria
   tarefasRotina: Record<number, Tarefa[]>;
+  // Lixeira de tarefas da rotina
+  lixeiraRotina: Tarefa[];
   // Horário semanal
   horarioSemanal: Record<string, string[]>;
   // Planilha financeira
@@ -55,6 +57,7 @@ const defaultData: PlanejamentoData = {
     1: [""], 2: [""], 3: [""], 4: [""], 5: [""], 6: [""], 7: [""], 8: [""]
   },
   tarefasRotina: {},
+  lixeiraRotina: [],
   horarioSemanal: {},
   despesas: [
     { id: "1", nome: "Recebimento", valor: 0 },

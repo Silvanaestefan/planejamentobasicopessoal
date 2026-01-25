@@ -90,7 +90,7 @@ const Rotina = () => {
   };
 
   const [tarefasPorCategoria, setTarefasPorCategoria] = useState<Record<number, Tarefa[]>>(inicializarTarefas);
-  const [lixeira, setLixeira] = useState<Tarefa[]>([]);
+  const [lixeira, setLixeira] = useState<Tarefa[]>(data.lixeiraRotina || []);
   const [novaTarefa, setNovaTarefa] = useState<Record<number, string>>({});
   const [openCategories, setOpenCategories] = useState<number[]>(categoriasRotina.map(c => c.id));
 
@@ -127,8 +127,11 @@ const Rotina = () => {
     const tarefa = tarefasPorCategoria[categoriaId].find(t => t.id === tarefaId);
     if (!tarefa) return;
 
-    // Move para a lixeira
-    setLixeira(prev => [...prev, { ...tarefa, concluida: true }]);
+    // Move para a lixeira e persiste
+    const novaLixeira = [...lixeira, { ...tarefa, concluida: true }];
+    setLixeira(novaLixeira);
+    updateData({ lixeiraRotina: novaLixeira });
+    
     const newTarefas = {
       ...tarefasPorCategoria,
       [categoriaId]: tarefasPorCategoria[categoriaId].filter(t => t.id !== tarefaId)
@@ -137,11 +140,14 @@ const Rotina = () => {
   };
 
   const removerDaLixeira = (tarefaId: string) => {
-    setLixeira(prev => prev.filter(t => t.id !== tarefaId));
+    const novaLixeira = lixeira.filter(t => t.id !== tarefaId);
+    setLixeira(novaLixeira);
+    updateData({ lixeiraRotina: novaLixeira });
   };
 
   const limparLixeira = () => {
     setLixeira([]);
+    updateData({ lixeiraRotina: [] });
   };
 
   return (
