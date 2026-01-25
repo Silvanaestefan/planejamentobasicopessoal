@@ -21,6 +21,7 @@ const PlanilhaFinanceira = () => {
 
   // Estado para despesas mensais
   const [despesas, setDespesas] = useState<ItemFinanceiro[]>(data.despesas);
+  const [cabecalhoDespesas, setCabecalhoDespesas] = useState(data.cabecalhoDespesas || "Salário");
   const [novaDespesa, setNovaDespesa] = useState({ nome: "", valor: "" });
 
   // Estado para documentos pessoais
@@ -37,8 +38,8 @@ const PlanilhaFinanceira = () => {
 
   // Sync with context
   useEffect(() => {
-    updateData({ despesas, docsPessoais, docsResidencia, docsImoveis });
-  }, [despesas, docsPessoais, docsResidencia, docsImoveis]);
+    updateData({ despesas, cabecalhoDespesas, docsPessoais, docsResidencia, docsImoveis });
+  }, [despesas, cabecalhoDespesas, docsPessoais, docsResidencia, docsImoveis]);
 
   // IDs fixos que não podem ser removidos
   const fixedIds = ["1", "2"];
@@ -148,7 +149,14 @@ const PlanilhaFinanceira = () => {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-[50%]">Salário</TableHead>
+                    <TableHead className="w-[50%]">
+                      <Input
+                        value={cabecalhoDespesas}
+                        onChange={(e) => setCabecalhoDespesas(e.target.value)}
+                        className="border-0 bg-transparent font-medium p-0 h-auto focus-visible:ring-0"
+                        placeholder="Salário"
+                      />
+                    </TableHead>
                     <TableHead className="text-right">Valor (R$)</TableHead>
                     <TableHead className="text-right w-[80px]">Ações</TableHead>
                   </TableRow>
