@@ -21,7 +21,7 @@ const categoriasRotina: CategoriaRotina[] = [
     id: 1,
     nome: "Organização do dia",
     icon: <Calendar className="h-5 w-5" />,
-    tarefasPadrao: ["Verificar compromissos e tarefas", "Verificar mensagens e lista de compras"]
+    tarefasPadrao: ["Verificar mensagens e lista de compras"]
   },
   {
     id: 2,
