@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowLeft, Plus, Calendar, Home, DollarSign, Heart, BookOpen, Palette, Sparkles, ChevronDown, ChevronRight } from "lucide-react";
+import { ArrowLeft, Plus, Trash2, Calendar, Home, DollarSign, Heart, BookOpen, Palette, Sparkles, ChevronDown, ChevronRight } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { usePlanejamento, Tarefa } from "@/contexts/PlanejamentoContext";
 import NavigationMenu from "@/components/NavigationMenu";
@@ -90,6 +90,7 @@ const Rotina = () => {
   };
 
   const [tarefasPorCategoria, setTarefasPorCategoria] = useState<Record<number, Tarefa[]>>(inicializarTarefas);
+  const [lixeira, setLixeira] = useState<Tarefa[]>([]);
   const [novaTarefa, setNovaTarefa] = useState<Record<number, string>>({});
   const [openCategories, setOpenCategories] = useState<number[]>(categoriasRotina.map(c => c.id));
 
@@ -123,36 +124,24 @@ const Rotina = () => {
   };
 
   const toggleTarefa = (categoriaId: number, tarefaId: string) => {
+    const tarefa = tarefasPorCategoria[categoriaId].find(t => t.id === tarefaId);
+    if (!tarefa) return;
+
+    // Move para a lixeira
+    setLixeira(prev => [...prev, { ...tarefa, concluida: true }]);
     const newTarefas = {
       ...tarefasPorCategoria,
-      [categoriaId]: tarefasPorCategoria[categoriaId].map(t =>
-        t.id === tarefaId ? { ...t, concluida: !t.concluida } : t
-      )
+      [categoriaId]: tarefasPorCategoria[categoriaId].filter(t => t.id !== tarefaId)
     };
     saveTarefas(newTarefas);
   };
 
-  const resetarTarefasDoDia = () => {
-    const newTarefas: Record<number, Tarefa[]> = {};
-    Object.keys(tarefasPorCategoria).forEach(key => {
-      const categoriaId = Number(key);
-      newTarefas[categoriaId] = tarefasPorCategoria[categoriaId].map(t => ({
-        ...t,
-        concluida: false
-      }));
-    });
-    saveTarefas(newTarefas);
+  const removerDaLixeira = (tarefaId: string) => {
+    setLixeira(prev => prev.filter(t => t.id !== tarefaId));
   };
-  const resetarParaPadrao = () => {
-    const inicial: Record<number, Tarefa[]> = {};
-    categoriasRotina.forEach(cat => {
-      inicial[cat.id] = cat.tarefasPadrao.map((texto, index) => ({
-        id: `${cat.id}-${index}`,
-        texto,
-        concluida: false
-      }));
-    });
-    saveTarefas(inicial);
+
+  const limparLixeira = () => {
+    setLixeira([]);
   };
 
   return (
@@ -248,23 +237,43 @@ const Rotina = () => {
           ))}
         </div>
 
-        {/* Botões de Ação */}
-        <div className="flex justify-center gap-4">
-          <Button
-            variant="outline"
-            onClick={resetarTarefasDoDia}
-            className="text-muted-foreground"
-          >
-            Resetar tarefas do dia
-          </Button>
-          <Button
-            variant="ghost"
-            onClick={resetarParaPadrao}
-            className="text-muted-foreground"
-          >
-            Limpar todas as tarefas
-          </Button>
-        </div>
+        {/* Lixeira */}
+        {lixeira.length > 0 && (
+          <Card className="border-destructive/50 bg-destructive/5">
+            <CardHeader className="pb-2">
+              <div className="flex items-center justify-between">
+                <CardTitle className="flex items-center gap-2 text-lg text-destructive">
+                  <Trash2 className="h-5 w-5" />
+                  Tarefas Concluídas ({lixeira.length})
+                </CardTitle>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  onClick={limparLixeira}
+                >
+                  Limpar tudo
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              {lixeira.map((tarefa) => (
+                <div key={tarefa.id} className="flex items-center justify-between p-2 rounded-md bg-background/50">
+                  <span className="text-sm text-muted-foreground line-through">
+                    {tarefa.texto}
+                  </span>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 text-destructive hover:text-destructive"
+                    onClick={() => removerDaLixeira(tarefa.id)}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        )}
 
         {/* Navegação */}
         <div className="flex justify-center mt-8">
