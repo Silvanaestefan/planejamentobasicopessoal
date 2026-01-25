@@ -21,7 +21,6 @@ const PlanilhaFinanceira = () => {
 
   // Estado para despesas mensais
   const [despesas, setDespesas] = useState<ItemFinanceiro[]>(data.despesas);
-  const [cabecalhoDespesas, setCabecalhoDespesas] = useState(data.cabecalhoDespesas || "Salário");
   const [novaDespesa, setNovaDespesa] = useState({ nome: "", valor: "" });
 
   // Estado para documentos pessoais
@@ -38,8 +37,8 @@ const PlanilhaFinanceira = () => {
 
   // Sync with context
   useEffect(() => {
-    updateData({ despesas, cabecalhoDespesas, docsPessoais, docsResidencia, docsImoveis });
-  }, [despesas, cabecalhoDespesas, docsPessoais, docsResidencia, docsImoveis]);
+    updateData({ despesas, docsPessoais, docsResidencia, docsImoveis });
+  }, [despesas, docsPessoais, docsResidencia, docsImoveis]);
 
   // IDs fixos que não podem ser removidos
   const fixedIds = ["1", "2"];
@@ -140,23 +139,16 @@ const PlanilhaFinanceira = () => {
             </div>
           </div>
 
-          {/* 1. Despesas Mensais */}
+          {/* 1. Pagamentos */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Despesas Mensais</CardTitle>
+              <CardTitle className="text-lg">Pagamentos</CardTitle>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-[50%]">
-                      <Input
-                        value={cabecalhoDespesas}
-                        onChange={(e) => setCabecalhoDespesas(e.target.value)}
-                        className="border-0 bg-transparent font-medium p-0 h-auto focus-visible:ring-0"
-                        placeholder="Salário"
-                      />
-                    </TableHead>
+                    <TableHead className="w-[50%]">Pagamento</TableHead>
                     <TableHead className="text-right">Valor (R$)</TableHead>
                     <TableHead className="text-right w-[80px]">Ações</TableHead>
                   </TableRow>
