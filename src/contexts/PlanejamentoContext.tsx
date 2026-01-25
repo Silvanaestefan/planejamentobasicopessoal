@@ -37,6 +37,7 @@ export interface PlanejamentoData {
   horarioSemanal: Record<string, string[]>;
   // Planilha financeira
   despesas: ItemFinanceiro[];
+  cabecalhoDespesas: string;
   docsPessoais: Documento[];
   docsResidencia: Documento[];
   docsImoveis: Documento[];
@@ -59,6 +60,7 @@ const defaultData: PlanejamentoData = {
     { id: "1", nome: "Salário", valor: 0 },
     { id: "2", nome: "Reserva de segurança", valor: 0 },
   ],
+  cabecalhoDespesas: "Salário",
   docsPessoais: [],
   docsResidencia: [],
   docsImoveis: [],
