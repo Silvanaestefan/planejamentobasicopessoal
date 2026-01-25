@@ -142,13 +142,13 @@ const PlanilhaFinanceira = () => {
           {/* 1. Pagamentos */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Pagamentos</CardTitle>
+              <CardTitle className="text-lg">Despesas Mensais</CardTitle>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-[50%]">Pagamento</TableHead>
+                    <TableHead className="w-[50%]">Pagamentos</TableHead>
                     <TableHead className="text-right">Valor (R$)</TableHead>
                     <TableHead className="text-right w-[80px]">Ações</TableHead>
                   </TableRow>
