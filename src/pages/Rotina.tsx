@@ -12,6 +12,7 @@ import NavigationMenu from "@/components/NavigationMenu";
 interface CategoriaRotina {
   id: number;
   nome: string;
+  descricao?: string;
   icon: React.ReactNode;
   tarefasPadrao: string[];
 }
@@ -20,6 +21,7 @@ const categoriasRotina: CategoriaRotina[] = [
   {
     id: 1,
     nome: "Organização do dia",
+    descricao: "(Verificar compromissos, tarefas, mensagens e listas de compras)",
     icon: <Calendar className="h-5 w-5" />,
     tarefasPadrao: ["Verificar mensagens e lista de compras"]
   },
@@ -167,9 +169,12 @@ const Rotina = () => {
                 <CollapsibleTrigger className="w-full">
                   <CardHeader className="pb-2">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2 text-lg font-semibold">
+                      <div className="flex items-center gap-2 text-lg font-semibold flex-wrap">
                         <span className="text-primary">{categoria.icon}</span>
                         {categoria.nome}
+                        {categoria.descricao && (
+                          <span className="text-sm font-normal text-muted-foreground">{categoria.descricao}</span>
+                        )}
                         {tarefasPorCategoria[categoria.id]?.length > 0 && (
                           <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">
                             {tarefasPorCategoria[categoria.id].length}
