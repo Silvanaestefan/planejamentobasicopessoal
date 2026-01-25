@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, DollarSign, Plus, Trash2, RotateCcw } from "lucide-react";
+import { ArrowLeft, DollarSign, Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,7 +17,7 @@ import NavigationMenu from "@/components/NavigationMenu";
 
 const PlanilhaFinanceira = () => {
   const navigate = useNavigate();
-  const { data, updateData, resetData } = usePlanejamento();
+  const { data, updateData } = usePlanejamento();
 
   // Estado para despesas mensais
   const [despesas, setDespesas] = useState<ItemFinanceiro[]>(data.despesas);
@@ -399,22 +399,10 @@ const PlanilhaFinanceira = () => {
             </CardContent>
           </Card>
 
-          {/* Botões */}
-          <div className="flex flex-col items-center gap-4 pt-6 pb-12">
+          {/* Botão Continuar */}
+          <div className="flex justify-center pt-6 pb-12">
             <Button size="lg" className="px-12" onClick={() => navigate("/mensal")}>
               Continuar
-            </Button>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={() => {
-                resetData();
-                window.location.reload();
-              }}
-              className="text-muted-foreground"
-            >
-              <RotateCcw className="w-4 h-4 mr-2" />
-              Resetar Dados
             </Button>
           </div>
         </div>
