@@ -185,7 +185,7 @@ const PlanilhaFinanceira = () => {
                       <Input
                         value={novaDespesa.nome}
                         onChange={(e) => setNovaDespesa({ ...novaDespesa, nome: e.target.value })}
-                        placeholder="Novo item..."
+                        placeholder="Recebimentos"
                         className="border-dashed"
                       />
                     </TableCell>
