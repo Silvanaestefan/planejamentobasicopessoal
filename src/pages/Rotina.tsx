@@ -143,7 +143,17 @@ const Rotina = () => {
     });
     saveTarefas(newTarefas);
   };
-
+  const resetarParaPadrao = () => {
+    const inicial: Record<number, Tarefa[]> = {};
+    categoriasRotina.forEach(cat => {
+      inicial[cat.id] = cat.tarefasPadrao.map((texto, index) => ({
+        id: `${cat.id}-${index}`,
+        texto,
+        concluida: false
+      }));
+    });
+    saveTarefas(inicial);
+  };
 
   return (
     <div className="min-h-screen bg-background p-4 pb-24">
@@ -238,14 +248,21 @@ const Rotina = () => {
           ))}
         </div>
 
-        {/* Botão Resetar Dia */}
-        <div className="flex justify-center">
+        {/* Botões de Ação */}
+        <div className="flex justify-center gap-4">
           <Button
             variant="outline"
             onClick={resetarTarefasDoDia}
             className="text-muted-foreground"
           >
             Resetar tarefas do dia
+          </Button>
+          <Button
+            variant="ghost"
+            onClick={resetarParaPadrao}
+            className="text-muted-foreground"
+          >
+            Limpar todas as tarefas
           </Button>
         </div>
 
