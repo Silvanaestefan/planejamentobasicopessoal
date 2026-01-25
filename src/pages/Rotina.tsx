@@ -63,6 +63,7 @@ const categoriasRotina: CategoriaRotina[] = [
   {
     id: 7,
     nome: "Espiritual",
+    descricao: "(Momento de reequilíbrio)",
     icon: <Sparkles className="h-5 w-5" />,
     tarefasPadrao: ["Momento de reequilíbrio"]
   }
