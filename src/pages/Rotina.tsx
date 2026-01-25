@@ -35,6 +35,7 @@ const categoriasRotina: CategoriaRotina[] = [
   {
     id: 3,
     nome: "Financeiro",
+    descricao: "(Verificar gastos e saldo do dia)",
     icon: <DollarSign className="h-5 w-5" />,
     tarefasPadrao: ["Verificar gastos", "Verificar saldo"]
   },
