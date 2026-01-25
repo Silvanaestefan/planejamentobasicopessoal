@@ -28,6 +28,7 @@ const categoriasRotina: CategoriaRotina[] = [
   {
     id: 2,
     nome: "Moradia",
+    descricao: "(Arrumar a casa, lavar e passar roupas, fazer compras e cozinhar)",
     icon: <Home className="h-5 w-5" />,
     tarefasPadrao: ["Arrumar a casa", "Fazer compras", "Cozinhar", "Lavar roupas", "Passar"]
   },
