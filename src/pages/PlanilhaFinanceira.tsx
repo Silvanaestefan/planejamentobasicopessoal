@@ -41,7 +41,7 @@ const PlanilhaFinanceira = () => {
   }, [despesas, docsPessoais, docsResidencia, docsImoveis]);
 
   // IDs fixos que não podem ser removidos
-  const fixedIds = ["1", "2"];
+  const fixedIds = ["1", "2", "3"];
 
   // Cálculos financeiros
   const receitas = despesas.find(d => d.nome === "Salário")?.valor || 0;
