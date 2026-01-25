@@ -49,6 +49,7 @@ const categoriasRotina: CategoriaRotina[] = [
   {
     id: 5,
     nome: "Educação",
+    descricao: "(Organizar escrivaninha, estudar)",
     icon: <BookOpen className="h-5 w-5" />,
     tarefasPadrao: ["Estudar"]
   },
