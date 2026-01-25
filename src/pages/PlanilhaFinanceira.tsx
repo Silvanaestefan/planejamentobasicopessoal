@@ -148,7 +148,7 @@ const PlanilhaFinanceira = () => {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-[50%]">Pagamentos</TableHead>
+                    <TableHead className="w-[50%]">Despesas</TableHead>
                     <TableHead className="text-right">Valor (R$)</TableHead>
                     <TableHead className="text-right w-[80px]">Ações</TableHead>
                   </TableRow>
