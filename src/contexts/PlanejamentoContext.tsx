@@ -57,8 +57,8 @@ const defaultData: PlanejamentoData = {
   tarefasRotina: {},
   horarioSemanal: {},
   despesas: [
-    { id: "1", nome: "Salário", valor: 0 },
-    { id: "2", nome: "Reserva de segurança", valor: 0 },
+    { id: "1", nome: "Recebimento", valor: 0 },
+    { id: "2", nome: "Reserva de Segurança", valor: 0 },
   ],
   cabecalhoDespesas: "Salário",
   docsPessoais: [],
