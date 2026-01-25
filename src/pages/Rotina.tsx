@@ -23,49 +23,49 @@ const categoriasRotina: CategoriaRotina[] = [
     nome: "Organização do dia",
     descricao: "(Verificar compromissos, tarefas, mensagens e listas de compras)",
     icon: <Calendar className="h-5 w-5" />,
-    tarefasPadrao: ["Verificar mensagens e lista de compras"]
+    tarefasPadrao: []
   },
   {
     id: 2,
     nome: "Moradia",
     descricao: "(Arrumar a casa, lavar e passar roupas, fazer compras e cozinhar)",
     icon: <Home className="h-5 w-5" />,
-    tarefasPadrao: ["Arrumar a casa", "Fazer compras", "Cozinhar", "Lavar roupas", "Passar"]
+    tarefasPadrao: []
   },
   {
     id: 3,
     nome: "Financeiro",
     descricao: "(Verificar gastos e saldo do dia)",
     icon: <DollarSign className="h-5 w-5" />,
-    tarefasPadrao: ["Verificar gastos", "Verificar saldo"]
+    tarefasPadrao: []
   },
   {
     id: 4,
     nome: "Cuidados Pessoais",
     descricao: "(Exercício físico)",
     icon: <Heart className="h-5 w-5" />,
-    tarefasPadrao: ["Exercício físico"]
+    tarefasPadrao: []
   },
   {
     id: 5,
     nome: "Educação",
     descricao: "(Organizar escrivaninha, estudar)",
     icon: <BookOpen className="h-5 w-5" />,
-    tarefasPadrao: ["Estudar"]
+    tarefasPadrao: []
   },
   {
     id: 6,
     nome: "Lazer",
     descricao: "(Artesanato, leitura, artes)",
     icon: <Palette className="h-5 w-5" />,
-    tarefasPadrao: ["Artesanato", "Leitura", "Cuidar de plantas"]
+    tarefasPadrao: []
   },
   {
     id: 7,
     nome: "Espiritual",
     descricao: "(Momento de reequilíbrio)",
     icon: <Sparkles className="h-5 w-5" />,
-    tarefasPadrao: ["Momento de reequilíbrio"]
+    tarefasPadrao: []
   }
 ];
 
