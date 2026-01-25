@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowLeft, Plus, Trash2, Calendar, Home, DollarSign, Heart, BookOpen, Palette, Sparkles } from "lucide-react";
+import { ArrowLeft, Plus, Trash2, Calendar, Home, DollarSign, Heart, BookOpen, Palette, Sparkles, ChevronDown, ChevronRight } from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { usePlanejamento, Tarefa } from "@/contexts/PlanejamentoContext";
 import NavigationMenu from "@/components/NavigationMenu";
 
@@ -83,6 +84,15 @@ const Rotina = () => {
   const [tarefasPorCategoria, setTarefasPorCategoria] = useState<Record<number, Tarefa[]>>(inicializarTarefas);
   const [lixeira, setLixeira] = useState<Tarefa[]>([]);
   const [novaTarefa, setNovaTarefa] = useState<Record<number, string>>({});
+  const [openCategories, setOpenCategories] = useState<number[]>(categoriasRotina.map(c => c.id));
+
+  const toggleCategory = (categoryId: number) => {
+    setOpenCategories(prev =>
+      prev.includes(categoryId)
+        ? prev.filter(id => id !== categoryId)
+        : [...prev, categoryId]
+    );
+  };
 
   // Save to context whenever tarefasPorCategoria changes
   const saveTarefas = (newTarefas: Record<number, Tarefa[]>) => {
@@ -148,50 +158,72 @@ const Rotina = () => {
         {/* Categorias */}
         <div className="space-y-4 mb-8">
           {categoriasRotina.map((categoria) => (
-            <Card key={categoria.id} className="border-l-4 border-l-primary">
-              <CardHeader className="pb-2">
-                <CardTitle className="flex items-center gap-2 text-lg">
-                  <span className="text-primary">{categoria.icon}</span>
-                  {categoria.nome}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                {/* Lista de tarefas */}
-                {tarefasPorCategoria[categoria.id]?.map((tarefa) => (
-                  <div key={tarefa.id} className="flex items-center gap-3 p-2 rounded-md hover:bg-muted/50 transition-colors">
-                    <Checkbox
-                      id={tarefa.id}
-                      checked={tarefa.concluida}
-                      onCheckedChange={() => toggleTarefa(categoria.id, tarefa.id)}
-                    />
-                    <label
-                      htmlFor={tarefa.id}
-                      className="flex-1 text-sm cursor-pointer"
-                    >
-                      {tarefa.texto}
-                    </label>
-                  </div>
-                ))}
+            <Collapsible
+              key={categoria.id}
+              open={openCategories.includes(categoria.id)}
+              onOpenChange={() => toggleCategory(categoria.id)}
+            >
+              <Card className="border-l-4 border-l-primary">
+                <CollapsibleTrigger className="w-full">
+                  <CardHeader className="pb-2">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-lg font-semibold">
+                        <span className="text-primary">{categoria.icon}</span>
+                        {categoria.nome}
+                        {tarefasPorCategoria[categoria.id]?.length > 0 && (
+                          <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">
+                            {tarefasPorCategoria[categoria.id].length}
+                          </span>
+                        )}
+                      </div>
+                      {openCategories.includes(categoria.id) ? (
+                        <ChevronDown className="h-5 w-5 text-muted-foreground" />
+                      ) : (
+                        <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                      )}
+                    </div>
+                  </CardHeader>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <CardContent className="space-y-2 pt-0">
+                    {/* Lista de tarefas */}
+                    {tarefasPorCategoria[categoria.id]?.map((tarefa) => (
+                      <div key={tarefa.id} className="flex items-center gap-3 p-2 rounded-md hover:bg-muted/50 transition-colors">
+                        <Checkbox
+                          id={tarefa.id}
+                          checked={tarefa.concluida}
+                          onCheckedChange={() => toggleTarefa(categoria.id, tarefa.id)}
+                        />
+                        <label
+                          htmlFor={tarefa.id}
+                          className="flex-1 text-sm cursor-pointer"
+                        >
+                          {tarefa.texto}
+                        </label>
+                      </div>
+                    ))}
 
-                {/* Adicionar nova tarefa */}
-                <div className="flex gap-2 mt-3">
-                  <Input
-                    placeholder="Adicionar nova rotina..."
-                    value={novaTarefa[categoria.id] || ""}
-                    onChange={(e) => setNovaTarefa(prev => ({ ...prev, [categoria.id]: e.target.value }))}
-                    onKeyDown={(e) => e.key === "Enter" && adicionarTarefa(categoria.id)}
-                    className="flex-1"
-                  />
-                  <Button
-                    size="icon"
-                    variant="outline"
-                    onClick={() => adicionarTarefa(categoria.id)}
-                  >
-                    <Plus className="h-4 w-4" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+                    {/* Adicionar nova tarefa */}
+                    <div className="flex gap-2 mt-3">
+                      <Input
+                        placeholder="Adicionar nova rotina..."
+                        value={novaTarefa[categoria.id] || ""}
+                        onChange={(e) => setNovaTarefa(prev => ({ ...prev, [categoria.id]: e.target.value }))}
+                        onKeyDown={(e) => e.key === "Enter" && adicionarTarefa(categoria.id)}
+                        className="flex-1"
+                      />
+                      <Button
+                        size="icon"
+                        variant="outline"
+                        onClick={() => adicionarTarefa(categoria.id)}
+                      >
+                        <Plus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </CardContent>
+                </CollapsibleContent>
+              </Card>
+            </Collapsible>
           ))}
         </div>
 
