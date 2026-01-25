@@ -58,6 +58,7 @@ const defaultData: PlanejamentoData = {
   horarioSemanal: {},
   despesas: [
     { id: "1", nome: "Recebimento", valor: 0 },
+    { id: "2", nome: "Recebimentos", valor: 0 },
   ],
   cabecalhoDespesas: "Salário",
   docsPessoais: [],
