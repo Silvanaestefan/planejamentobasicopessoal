@@ -45,8 +45,7 @@ const PlanilhaFinanceira = () => {
 
   // Cálculos financeiros
   const receitas = despesas.find(d => d.id === "2")?.valor || 0;
-  const reserva = despesas.find(d => d.id === "2")?.valor || 0;
-  const gastos = despesas.filter(d => !fixedIds.includes(d.id)).reduce((acc, d) => acc + d.valor, 0);
+  const gastos = despesas.filter(d => d.id !== "2").reduce((acc, d) => acc + d.valor, 0);
   const saldo = receitas - gastos;
 
   // Funções para despesas
