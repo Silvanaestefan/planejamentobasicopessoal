@@ -40,9 +40,13 @@ const PlanilhaFinanceira = () => {
     updateData({ despesas, docsPessoais, docsResidencia, docsImoveis });
   }, [despesas, docsPessoais, docsResidencia, docsImoveis]);
 
+  // IDs fixos que não podem ser removidos
+  const fixedIds = ["1", "2"];
+
   // Cálculos financeiros
-  const receitas = despesas.find(d => d.nome === "Recebimento")?.valor || 0;
-  const gastos = despesas.filter(d => d.nome !== "Recebimento").reduce((acc, d) => acc + d.valor, 0);
+  const receitas = despesas.find(d => d.nome === "Salário")?.valor || 0;
+  const reserva = despesas.find(d => d.id === "2")?.valor || 0;
+  const gastos = despesas.filter(d => !fixedIds.includes(d.id)).reduce((acc, d) => acc + d.valor, 0);
   const saldo = receitas - gastos;
 
   // Funções para despesas
@@ -163,14 +167,16 @@ const PlanilhaFinanceira = () => {
                         />
                       </TableCell>
                       <TableCell className="text-right">
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => removerDespesa(despesa.id)}
-                          className="text-destructive hover:text-destructive"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
+                        {!fixedIds.includes(despesa.id) && (
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => removerDespesa(despesa.id)}
+                            className="text-destructive hover:text-destructive"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        )}
                       </TableCell>
                     </TableRow>
                   ))}
