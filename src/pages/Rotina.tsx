@@ -85,7 +85,6 @@ const Rotina = () => {
   const [lixeira, setLixeira] = useState<Tarefa[]>([]);
   const [novaTarefa, setNovaTarefa] = useState<Record<number, string>>({});
   const [openCategories, setOpenCategories] = useState<number[]>(categoriasRotina.map(c => c.id));
-  const [editandoTarefa, setEditandoTarefa] = useState<string | null>(null);
 
   const toggleCategory = (categoryId: number) => {
     setOpenCategories(prev =>
@@ -128,16 +127,6 @@ const Rotina = () => {
       };
       saveTarefas(newTarefas);
     }
-  };
-
-  const editarTarefa = (categoriaId: number, tarefaId: string, novoTexto: string) => {
-    const newTarefas = {
-      ...tarefasPorCategoria,
-      [categoriaId]: tarefasPorCategoria[categoriaId].map(t =>
-        t.id === tarefaId ? { ...t, texto: novoTexto } : t
-      )
-    };
-    saveTarefas(newTarefas);
   };
 
   const removerDaLixeira = (tarefaId: string) => {
@@ -205,24 +194,12 @@ const Rotina = () => {
                           checked={tarefa.concluida}
                           onCheckedChange={() => toggleTarefa(categoria.id, tarefa.id)}
                         />
-                        {editandoTarefa === tarefa.id ? (
-                          <Input
-                            value={tarefa.texto}
-                            onChange={(e) => editarTarefa(categoria.id, tarefa.id, e.target.value)}
-                            onBlur={() => setEditandoTarefa(null)}
-                            onKeyDown={(e) => e.key === "Enter" && setEditandoTarefa(null)}
-                            autoFocus
-                            className="flex-1"
-                          />
-                        ) : (
-                          <label
-                            htmlFor={tarefa.id}
-                            className="flex-1 text-sm cursor-pointer"
-                            onDoubleClick={() => setEditandoTarefa(tarefa.id)}
-                          >
-                            {tarefa.texto}
-                          </label>
-                        )}
+                        <label
+                          htmlFor={tarefa.id}
+                          className="flex-1 text-sm cursor-pointer"
+                        >
+                          {tarefa.texto}
+                        </label>
                       </div>
                     ))}
 
