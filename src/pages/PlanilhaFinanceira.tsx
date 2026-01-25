@@ -40,12 +40,14 @@ const PlanilhaFinanceira = () => {
     updateData({ despesas, docsPessoais, docsResidencia, docsImoveis });
   }, [despesas, docsPessoais, docsResidencia, docsImoveis]);
 
-  // IDs fixos que não podem ser removidos
-  const fixedIds = ["1", "2", "3"];
+  // IDs fixos que não podem ser removidos (1 = Recebimento, 2 = Reserva de Segurança)
+  const fixedIds = ["1", "2"];
 
   // Cálculos financeiros
-  const receitas = despesas.find(d => d.id === "2")?.valor || 0;
-  const gastos = despesas.filter(d => d.id !== "2").reduce((acc, d) => acc + d.valor, 0);
+  // Recebimento (id: 1) vai para receitas
+  const receitas = despesas.find(d => d.id === "1")?.valor || 0;
+  // Todos os outros itens (exceto Recebimento) vão para gastos
+  const gastos = despesas.filter(d => d.id !== "1").reduce((acc, d) => acc + d.valor, 0);
   const saldo = receitas - gastos;
 
   // Funções para despesas
