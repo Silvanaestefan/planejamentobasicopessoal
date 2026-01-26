@@ -52,6 +52,11 @@ const Index = () => {
           <FeatureBadge text="Organizar o básico" />
           <FeatureBadge text="Definir metas reais" />
         </div>
+
+        {/* Social Handle */}
+        <p className="text-sm text-muted-foreground pt-4">
+          @planejamentopessoal5
+        </p>
       </div>
       <NavigationMenu />
     </div>
