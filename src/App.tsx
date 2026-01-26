@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { PlanejamentoProvider } from "@/contexts/PlanejamentoContext";
+import LandingPage from "./pages/LandingPage";
 import Index from "./pages/Index";
 import Comecar from "./pages/Comecar";
 import Pilares from "./pages/Pilares";
@@ -29,7 +30,8 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Index />} />
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/app" element={<Index />} />
             <Route path="/comecar" element={<Comecar />} />
             <Route path="/pilares" element={<Pilares />} />
             <Route path="/metas" element={<Metas />} />
