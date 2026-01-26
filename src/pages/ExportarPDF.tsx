@@ -60,8 +60,8 @@ const ExportarPDF = () => {
               <ArrowLeft className="h-5 w-5" />
             </Button>
             <div className="flex-1">
-              <h1 className="text-3xl font-bold">Exportar PDF</h1>
-              <p className="text-primary-foreground/80">Visualize e imprima seu planejamento</p>
+              <h1 className="text-xl md:text-3xl font-bold">Planejamento Básico Pessoal</h1>
+              <p className="text-primary-foreground/80 text-sm md:text-base">Visualize e imprima seu planejamento</p>
             </div>
             <Button 
               onClick={handlePrint}
@@ -76,7 +76,7 @@ const ExportarPDF = () => {
 
       {/* Print Header - only visible in print */}
       <div className="hidden print:block text-center py-8 border-b-2 border-primary">
-        <h1 className="text-3xl font-bold text-primary">Planejamento Básico Pessoal</h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-primary whitespace-nowrap">Planejamento Básico Pessoal</h1>
         <p className="text-muted-foreground mt-2">Gerado em {new Date().toLocaleDateString('pt-BR')}</p>
       </div>
 
