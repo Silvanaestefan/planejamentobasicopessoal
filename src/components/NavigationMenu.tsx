@@ -18,23 +18,31 @@ const pages = [
   { path: "/exportar-pdf", label: "PDF" },
 ];
 
+const SCROLL_STORAGE_KEY = 'nav-menu-scroll-position';
+
 const NavigationMenu = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const scrollPositionRef = useRef(0);
 
-  // Preserve scroll position
+  // Restore scroll position from localStorage
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
-    // Restore scroll position after render
-    container.scrollLeft = scrollPositionRef.current;
+    const savedPosition = localStorage.getItem(SCROLL_STORAGE_KEY);
+    if (savedPosition) {
+      container.scrollLeft = parseInt(savedPosition, 10);
+    }
+  }, []);
 
-    // Save scroll position on scroll
+  // Save scroll position to localStorage on scroll
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
     const handleScroll = () => {
-      scrollPositionRef.current = container.scrollLeft;
+      localStorage.setItem(SCROLL_STORAGE_KEY, container.scrollLeft.toString());
     };
 
     container.addEventListener('scroll', handleScroll, { passive: true });
