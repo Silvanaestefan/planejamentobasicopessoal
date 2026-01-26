@@ -25,7 +25,7 @@ const NavigationMenu = () => {
   const location = useLocation();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // Restore scroll position from localStorage
+  // Restore scroll position from localStorage after navigation
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
@@ -34,7 +34,7 @@ const NavigationMenu = () => {
     if (savedPosition) {
       container.scrollLeft = parseInt(savedPosition, 10);
     }
-  }, []);
+  }, [location.pathname]);
 
   // Save scroll position to localStorage on scroll
   useEffect(() => {
