@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { useRef, useEffect } from "react";
+import { useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 const pages = [
@@ -18,40 +18,23 @@ const pages = [
   { path: "/exportar-pdf", label: "PDF" },
 ];
 
-const SCROLL_STORAGE_KEY = 'nav-menu-scroll-position';
+// Singleton para manter referência ao container entre navegações
+let scrollContainer: HTMLDivElement | null = null;
 
 const NavigationMenu = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // Restore scroll position from localStorage after navigation
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    const savedPosition = localStorage.getItem(SCROLL_STORAGE_KEY);
-    if (savedPosition) {
-      container.scrollLeft = parseInt(savedPosition, 10);
+  // Manter referência ao container
+  const setContainerRef = (el: HTMLDivElement | null) => {
+    if (el && !scrollContainer) {
+      scrollContainer = el;
     }
-  }, [location.pathname]);
-
-  // Save scroll position to localStorage on scroll
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    const handleScroll = () => {
-      localStorage.setItem(SCROLL_STORAGE_KEY, container.scrollLeft.toString());
-    };
-
-    container.addEventListener('scroll', handleScroll, { passive: true });
-    return () => container.removeEventListener('scroll', handleScroll);
-  }, []);
+  };
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-card border-t border-border shadow-lg z-50">
-      <div ref={scrollContainerRef} className="overflow-x-auto scrollbar-hide">
+      <div ref={setContainerRef} className="overflow-x-auto scrollbar-hide">
         <div className="flex gap-1 p-2 min-w-max justify-center">
           {pages.map((page, index) => {
             const isActive = location.pathname === page.path;
