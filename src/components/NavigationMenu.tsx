@@ -1,4 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
+import { useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 const pages = [
@@ -20,10 +21,29 @@ const pages = [
 const NavigationMenu = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const scrollPositionRef = useRef(0);
+
+  // Preserve scroll position
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    // Restore scroll position after render
+    container.scrollLeft = scrollPositionRef.current;
+
+    // Save scroll position on scroll
+    const handleScroll = () => {
+      scrollPositionRef.current = container.scrollLeft;
+    };
+
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-card border-t border-border shadow-lg z-50">
-      <div className="overflow-x-auto scrollbar-hide">
+      <div ref={scrollContainerRef} className="overflow-x-auto scrollbar-hide">
         <div className="flex gap-1 p-2 min-w-max justify-center">
           {pages.map((page, index) => {
             const isActive = location.pathname === page.path;
