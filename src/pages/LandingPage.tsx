@@ -338,7 +338,7 @@ const LandingPage = () => {
             <Card className="p-6 relative">
               <h3 className="text-xl font-semibold mb-4">Plano Mensal</h3>
               <div className="mb-4">
-                <span className="text-4xl font-bold text-primary">R$ 4,90</span>
+                <span className="text-4xl font-bold text-primary">R$ 8,10</span>
                 <span className="text-muted-foreground"> por mês</span>
               </div>
               <p className="text-muted-foreground mb-6">Cancele quando quiser</p>
@@ -354,7 +354,7 @@ const LandingPage = () => {
               </div>
               <h3 className="text-xl font-semibold mb-4">Plano Anual</h3>
               <div className="mb-4">
-                <span className="text-4xl font-bold text-primary">R$ 49,00</span>
+                <span className="text-4xl font-bold text-primary">R$ 81,00</span>
                 <span className="text-muted-foreground"> por ano</span>
               </div>
               <p className="text-muted-foreground mb-6">Cancele quando quiser</p>
