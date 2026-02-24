@@ -11,10 +11,10 @@ const pilares = [
   { id: 2, nome: "Moradia", icon: Home },
   { id: 3, nome: "Educação", icon: BookOpen },
   { id: 4, nome: "Finanças", icon: DollarSign },
-  { id: 5, nome: "Trabalho", icon: Briefcase },
   { id: 6, nome: "Natureza", icon: Leaf },
   { id: 7, nome: "Lazer e Social", icon: Users },
   { id: 8, nome: "Espiritual", icon: Sparkles },
+  { id: 5, nome: "Trabalho", icon: Briefcase },
 ];
 
 const Metas = () => {
