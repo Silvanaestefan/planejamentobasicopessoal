@@ -164,6 +164,9 @@ const LandingPage = () => {
                   { icon: "🏠", name: "Moradia", stars: 3 },
                   { icon: "📚", name: "Educação", stars: 3 },
                   { icon: "💰", name: "Finanças", stars: 3 },
+                  { icon: "🌿", name: "Contato com a Natureza", stars: 3 },
+                  { icon: "🎉", name: "Lazer e Social", stars: 3 },
+                  { icon: "✨", name: "Espiritual", stars: 3 },
                   { icon: "💼", name: "Trabalho", stars: 3 },
                 ].map((item, index) => (
                   <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
