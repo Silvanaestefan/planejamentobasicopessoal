@@ -360,7 +360,7 @@ const LandingPage = () => {
               </div>
               <h3 className="text-xl font-semibold mb-4">Plano Anual</h3>
               <div className="mb-4">
-                <span className="text-4xl font-bold text-primary">R$ 81,00</span>
+                <span className="text-4xl font-bold text-primary">R$ 68,00</span>
                 <span className="text-muted-foreground"> por ano</span>
               </div>
               <p className="text-muted-foreground mb-6">Cancele quando quiser</p>
