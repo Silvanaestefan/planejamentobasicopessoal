@@ -236,8 +236,6 @@ const LandingPage = () => {
               "Área de metas",
               "Relatórios de progresso",
               "Conteúdos exclusivos",
-              "Método 100% brasileiro",
-              "Sem anúncios",
             ].map((item, index) => (
               <div key={index} className="flex items-center gap-3 p-4 bg-background rounded-xl border">
                 <Check className="w-5 h-5 text-primary flex-shrink-0" />
