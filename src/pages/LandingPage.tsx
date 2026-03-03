@@ -274,7 +274,7 @@ const LandingPage = () => {
           <div className="grid md:grid-cols-2 gap-4">
             {[
               "Organiza todas as áreas da vida em um único método simples",
-              "Foi criado para pessoas reais, com rotina corrida",
+              "Foi criado para pessoas que precisam definir uma rotina",
               "Transforma desorganização em clareza",
               "Foca no que realmente importa, não no que só ocupa tempo",
               "Incentiva hábitos simples que geram grandes mudanças",
