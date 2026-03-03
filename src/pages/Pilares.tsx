@@ -6,14 +6,14 @@ import { usePlanejamento } from "@/contexts/PlanejamentoContext";
 import NavigationMenu from "@/components/NavigationMenu";
 
 const pilares = [
-  { id: 1, nome: "Saúde e Cuidados Pessoais", icon: Heart },
-  { id: 2, nome: "Moradia", icon: Home },
-  { id: 3, nome: "Educação", icon: GraduationCap },
-  { id: 4, nome: "Finanças", icon: Wallet },
-  { id: 6, nome: "Natureza", icon: Leaf },
-  { id: 7, nome: "Lazer e Social", icon: Users },
-  { id: 8, nome: "Espiritual", icon: Sparkles },
-  { id: 5, nome: "Trabalho", icon: Briefcase },
+  { id: 1, nome: "Saúde e Cuidados Pessoais", descricao: "Exames, vacinação", icon: Heart },
+  { id: 2, nome: "Moradia", descricao: "Organização, limpeza, listas de compras", icon: Home },
+  { id: 3, nome: "Educação", descricao: "Dedicação aos estudos, organização dos livros e deveres", icon: GraduationCap },
+  { id: 4, nome: "Finanças", descricao: "Controlada", icon: Wallet },
+  { id: 6, nome: "Natureza", descricao: "Este contato é toda semana?", icon: Leaf },
+  { id: 7, nome: "Lazer e Social", descricao: "", icon: Users },
+  { id: 8, nome: "Espiritual", descricao: "Equilíbrio, oração, paz interior", icon: Sparkles },
+  { id: 5, nome: "Trabalho", descricao: "Tem trabalho remunerado ou voluntário", icon: Briefcase },
 ];
 
 const Pilares = () => {
@@ -77,11 +77,16 @@ const Pilares = () => {
                   key={pilar.id}
                   className="bg-card rounded-xl shadow-sm p-4 flex items-center justify-between gap-4"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                       <Icon className="w-5 h-5 text-primary" />
                     </div>
-                    <span className="font-medium text-foreground">{pilar.nome}</span>
+                    <div className="min-w-0">
+                      <span className="font-medium text-foreground block">{pilar.nome}</span>
+                      {pilar.descricao && (
+                        <span className="text-xs text-muted-foreground block">{pilar.descricao}</span>
+                      )}
+                    </div>
                   </div>
                   <StarRating
                     value={avaliacoes[pilar.id] || 0}
