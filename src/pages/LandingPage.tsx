@@ -118,7 +118,7 @@ const LandingPage = () => {
             O app simples e eficiente para quem quer ter controle da própria vida.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+          <div className="flex justify-center mb-10">
             <Button 
               size="lg" 
               onClick={() => navigate("/comecar")}
@@ -126,14 +126,6 @@ const LandingPage = () => {
             >
               Começar Agora
               <ArrowRight className="w-5 h-5" />
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline"
-              onClick={() => scrollToSection("recursos")}
-              className="px-8 py-6 text-lg"
-            >
-              Ver Demonstração
             </Button>
           </div>
 
