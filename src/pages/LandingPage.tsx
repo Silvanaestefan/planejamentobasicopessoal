@@ -356,7 +356,7 @@ const LandingPage = () => {
             {/* Annual Plan */}
             <Card className="p-6 relative border-primary">
               <div className="absolute -top-3 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
-                Economia de 2 meses
+                Economia de 3 meses
               </div>
               <h3 className="text-xl font-semibold mb-4">Plano Anual</h3>
               <div className="mb-4">
