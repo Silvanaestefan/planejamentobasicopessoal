@@ -326,13 +326,26 @@ const LandingPage = () => {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-3 gap-6">
             {/* Monthly Plan */}
             <Card className="p-6 relative">
               <h3 className="text-xl font-semibold mb-4">Plano Mensal</h3>
               <div className="mb-4">
                 <span className="text-4xl font-bold text-primary">R$ 8,10</span>
                 <span className="text-muted-foreground"> por mês</span>
+              </div>
+              <p className="text-muted-foreground mb-6">Cancele quando quiser</p>
+              <Button variant="outline" className="w-full" onClick={() => navigate("/comecar")}>
+                Assinar agora
+              </Button>
+            </Card>
+
+            {/* Semestral Plan */}
+            <Card className="p-6 relative">
+              <h3 className="text-xl font-semibold mb-4">Plano Semestral</h3>
+              <div className="mb-4">
+                <span className="text-4xl font-bold text-primary">R$ 36,00</span>
+                <span className="text-muted-foreground"> por semestre</span>
               </div>
               <p className="text-muted-foreground mb-6">Cancele quando quiser</p>
               <Button variant="outline" className="w-full" onClick={() => navigate("/comecar")}>
