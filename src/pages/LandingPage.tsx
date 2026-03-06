@@ -11,7 +11,6 @@ import {
   Clock, 
   Bell,
   UserPlus,
-  CreditCard,
   Unlock,
   CalendarCheck,
   TrendingUp,
@@ -52,9 +51,6 @@ const LandingPage = () => {
             <button onClick={() => scrollToSection("beneficios")} className="text-muted-foreground hover:text-foreground transition-colors">
               Benefícios
             </button>
-            <button onClick={() => scrollToSection("planos")} className="text-muted-foreground hover:text-foreground transition-colors">
-              Planos
-            </button>
           </nav>
 
           <div className="hidden md:flex items-center gap-4">
@@ -62,7 +58,7 @@ const LandingPage = () => {
               Entrar
             </Button>
             <Button onClick={() => navigate("/cadastro")}>
-              Começar Grátis
+              Criar Conta Grátis
             </Button>
           </div>
 
@@ -84,15 +80,12 @@ const LandingPage = () => {
             <button onClick={() => scrollToSection("beneficios")} className="block w-full text-left py-2">
               Benefícios
             </button>
-            <button onClick={() => scrollToSection("planos")} className="block w-full text-left py-2">
-              Planos
-            </button>
             <div className="pt-4 space-y-2">
               <Button variant="outline" className="w-full" onClick={() => navigate("/login")}>
                 Entrar
               </Button>
               <Button className="w-full" onClick={() => navigate("/cadastro")}>
-                Começar Grátis
+                Criar Conta Grátis
               </Button>
             </div>
           </div>
@@ -316,62 +309,6 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section className="py-16 px-4" id="planos">
-        <div className="container mx-auto max-w-3xl">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <div className="w-4 h-4 rounded-full bg-primary"></div>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground">Planos</h2>
-            </div>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Monthly Plan */}
-            <Card className="p-6 relative">
-              <h3 className="text-xl font-semibold mb-4">Plano Mensal</h3>
-              <div className="mb-4">
-                <span className="text-4xl font-bold text-primary">R$ 8,10</span>
-                <span className="text-muted-foreground"> por mês</span>
-              </div>
-              <p className="text-muted-foreground mb-6">Cancele quando quiser</p>
-              <Button variant="outline" className="w-full" onClick={() => navigate("/cadastro")}>
-                Assinar agora
-              </Button>
-            </Card>
-
-            {/* Semestral Plan */}
-            <Card className="p-6 relative">
-              <h3 className="text-xl font-semibold mb-4">Plano Semestral</h3>
-              <div className="mb-4">
-                <span className="text-4xl font-bold text-primary">R$ 36,00</span>
-                <span className="text-muted-foreground"> por semestre</span>
-              </div>
-              <p className="text-muted-foreground mb-6">Cancele quando quiser</p>
-              <Button variant="outline" className="w-full" onClick={() => navigate("/cadastro")}>
-                Assinar agora
-              </Button>
-            </Card>
-
-            {/* Annual Plan */}
-            <Card className="p-6 relative border-primary">
-              <div className="absolute -top-3 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
-                Economia de 3 meses
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Plano Anual</h3>
-              <div className="mb-4">
-                <span className="text-4xl font-bold text-primary">R$ 68,00</span>
-                <span className="text-muted-foreground"> por ano</span>
-              </div>
-              <p className="text-muted-foreground mb-6">Cancele quando quiser</p>
-              <Button className="w-full" onClick={() => navigate("/cadastro")}>
-                Assinar agora
-              </Button>
-            </Card>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-16 bg-gradient-to-b from-primary/10 to-primary/5 px-4">
         <div className="container mx-auto text-center max-w-2xl">
@@ -380,15 +317,14 @@ const LandingPage = () => {
           </h2>
           <Button 
             size="lg" 
-            variant="outline"
             onClick={() => navigate("/cadastro")}
-            className="px-8 py-6 text-lg gap-2 bg-background"
+            className="px-8 py-6 text-lg gap-2"
           >
             Criar Minha Conta Grátis
             <ArrowRight className="w-5 h-5" />
           </Button>
           <p className="text-sm text-muted-foreground mt-4">
-            7 dias grátis • Sem cartão de crédito
+            100% gratuito • Sem cartão de crédito
           </p>
         </div>
       </section>
