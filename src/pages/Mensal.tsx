@@ -102,6 +102,9 @@ const Mensal = () => {
         <Card className="border-0 shadow-lg">
           <CardHeader className="bg-accent/50 rounded-t-lg">
             <CardTitle className="text-lg">Listas de Compras</CardTitle>
+            <p className="text-sm text-muted-foreground mt-1">
+              Compre somente o necessário para o mês e opte por ter uma alimentação saudável diariamente.
+            </p>
           </CardHeader>
           <CardContent className="p-4">
             <div className="space-y-4">
