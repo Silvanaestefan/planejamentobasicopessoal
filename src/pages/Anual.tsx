@@ -20,7 +20,7 @@ const Anual = () => {
   const { data, updateData } = usePlanejamento();
   
   const [meses, setMeses] = useState<MesesType>(data.planejamentoAnual);
-  const [openMeses, setOpenMeses] = useState<string[]>(["Janeiro", "Fevereiro", "Março"]);
+  const [openMeses, setOpenMeses] = useState<string[]>([]);
   const [novosItens, setNovosItens] = useState<{ [key: string]: string }>({});
 
   // Sync with context
