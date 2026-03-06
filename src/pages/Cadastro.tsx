@@ -44,7 +44,7 @@ const Cadastro = () => {
           </div>
           <h1 className="text-2xl font-bold text-foreground">Criar conta</h1>
           <p className="text-muted-foreground text-sm">
-            7 dias grátis • Sem compromisso
+            Acesse seu planejamento pessoal
           </p>
         </div>
 
