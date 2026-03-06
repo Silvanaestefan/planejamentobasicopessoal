@@ -6,8 +6,6 @@ interface AuthContextType {
   user: User | null;
   session: Session | null;
   loading: boolean;
-  trialDaysLeft: number | null;
-  isSubscribed: boolean;
   signUp: (email: string, password: string) => Promise<{ error: any }>;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
@@ -19,41 +17,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
-  const [trialDaysLeft, setTrialDaysLeft] = useState<number | null>(null);
-  const [isSubscribed, setIsSubscribed] = useState(false);
-
-  const fetchProfile = async (userId: string) => {
-    const { data } = await supabase
-      .from("profiles")
-      .select("trial_start, is_subscribed")
-      .eq("id", userId)
-      .single();
-
-    if (data) {
-      setIsSubscribed(data.is_subscribed);
-      const trialStart = new Date(data.trial_start);
-      const now = new Date();
-      const diffDays = 7 - Math.floor((now.getTime() - trialStart.getTime()) / (1000 * 60 * 60 * 24));
-      setTrialDaysLeft(Math.max(0, diffDays));
-    }
-  };
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
       setUser(session?.user ?? null);
-      if (session?.user) {
-        setTimeout(() => fetchProfile(session.user.id), 0);
-      }
       setLoading(false);
     });
 
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
-      if (session?.user) {
-        fetchProfile(session.user.id);
-      }
       setLoading(false);
     });
 
@@ -78,12 +52,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     await supabase.auth.signOut();
     setUser(null);
     setSession(null);
-    setTrialDaysLeft(null);
-    setIsSubscribed(false);
   };
 
   return (
-    <AuthContext.Provider value={{ user, session, loading, trialDaysLeft, isSubscribed, signUp, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, session, loading, signUp, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
