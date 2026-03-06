@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
-import { CalendarCheck, Eye, EyeOff, CheckCircle } from "lucide-react";
+import { CalendarCheck, Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const Cadastro = () => {
@@ -11,7 +11,7 @@ const Cadastro = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  
   const { signUp } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -29,30 +29,11 @@ const Cadastro = () => {
         variant: "destructive",
       });
     } else {
-      setSuccess(true);
+      navigate("/app");
     }
     setLoading(false);
   };
 
-  if (success) {
-    return (
-      <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6 py-12">
-        <div className="max-w-sm w-full text-center space-y-6">
-          <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-            <CheckCircle className="w-8 h-8 text-primary" />
-          </div>
-          <h1 className="text-2xl font-bold text-foreground">Verifique seu email</h1>
-          <p className="text-muted-foreground">
-            Enviamos um link de confirmação para <strong className="text-foreground">{email}</strong>.
-            Clique no link para ativar sua conta.
-          </p>
-          <Button variant="outline" onClick={() => navigate("/login")} className="w-full">
-            Ir para login
-          </Button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6 py-12">
@@ -63,7 +44,7 @@ const Cadastro = () => {
           </div>
           <h1 className="text-2xl font-bold text-foreground">Criar conta</h1>
           <p className="text-muted-foreground text-sm">
-            7 dias grátis • Sem compromisso
+            Acesse seu planejamento pessoal
           </p>
         </div>
 
@@ -101,7 +82,7 @@ const Cadastro = () => {
           </div>
 
           <Button type="submit" className="w-full" size="lg" disabled={loading}>
-            {loading ? "Criando..." : "Começar grátis por 7 dias"}
+            {loading ? "Criando..." : "Começar"}
           </Button>
         </form>
 
