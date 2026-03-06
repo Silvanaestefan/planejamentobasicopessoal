@@ -58,10 +58,10 @@ const LandingPage = () => {
           </nav>
 
           <div className="hidden md:flex items-center gap-4">
-            <Button variant="ghost" onClick={() => navigate("/comecar")}>
+            <Button variant="ghost" onClick={() => navigate("/login")}>
               Entrar
             </Button>
-            <Button onClick={() => navigate("/comecar")}>
+            <Button onClick={() => navigate("/cadastro")}>
               Começar Grátis
             </Button>
           </div>
@@ -88,10 +88,10 @@ const LandingPage = () => {
               Planos
             </button>
             <div className="pt-4 space-y-2">
-              <Button variant="outline" className="w-full" onClick={() => navigate("/comecar")}>
+              <Button variant="outline" className="w-full" onClick={() => navigate("/login")}>
                 Entrar
               </Button>
-              <Button className="w-full" onClick={() => navigate("/comecar")}>
+              <Button className="w-full" onClick={() => navigate("/cadastro")}>
                 Começar Grátis
               </Button>
             </div>
@@ -121,7 +121,7 @@ const LandingPage = () => {
           <div className="flex justify-center mb-10">
             <Button 
               size="lg" 
-              onClick={() => navigate("/comecar")}
+              onClick={() => navigate("/cadastro")}
               className="px-8 py-6 text-lg gap-2"
             >
               Começar Agora
@@ -247,9 +247,9 @@ const LandingPage = () => {
           <div className="text-center mt-10">
             <Button 
               size="lg" 
-              onClick={() => navigate("/comecar")}
-              className="px-8 py-6 text-lg gap-2"
-            >
+            onClick={() => navigate("/cadastro")}
+            className="px-8 py-6 text-lg gap-2"
+          >
               Começar Agora
               <ArrowRight className="w-5 h-5" />
             </Button>
@@ -335,7 +335,7 @@ const LandingPage = () => {
                 <span className="text-muted-foreground"> por mês</span>
               </div>
               <p className="text-muted-foreground mb-6">Cancele quando quiser</p>
-              <Button variant="outline" className="w-full" onClick={() => navigate("/comecar")}>
+              <Button variant="outline" className="w-full" onClick={() => navigate("/cadastro")}>
                 Assinar agora
               </Button>
             </Card>
@@ -348,7 +348,7 @@ const LandingPage = () => {
                 <span className="text-muted-foreground"> por semestre</span>
               </div>
               <p className="text-muted-foreground mb-6">Cancele quando quiser</p>
-              <Button variant="outline" className="w-full" onClick={() => navigate("/comecar")}>
+              <Button variant="outline" className="w-full" onClick={() => navigate("/cadastro")}>
                 Assinar agora
               </Button>
             </Card>
@@ -364,7 +364,7 @@ const LandingPage = () => {
                 <span className="text-muted-foreground"> por ano</span>
               </div>
               <p className="text-muted-foreground mb-6">Cancele quando quiser</p>
-              <Button className="w-full" onClick={() => navigate("/comecar")}>
+              <Button className="w-full" onClick={() => navigate("/cadastro")}>
                 Assinar agora
               </Button>
             </Card>
@@ -381,7 +381,7 @@ const LandingPage = () => {
           <Button 
             size="lg" 
             variant="outline"
-            onClick={() => navigate("/comecar")}
+            onClick={() => navigate("/cadastro")}
             className="px-8 py-6 text-lg gap-2 bg-background"
           >
             Criar Minha Conta Grátis
