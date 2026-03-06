@@ -299,8 +299,8 @@ const LandingPage = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { icon: UserPlus, text: "Você cria sua conta no app" },
-              { icon: CreditCard, text: "Escolhe seu plano" },
-              { icon: Unlock, text: "Acessa todos os conteúdos premium" },
+              { icon: CalendarCheck, text: "Preenche com calma" },
+              { icon: Unlock, text: "Acessa todos os conteúdos" },
               { icon: CalendarCheck, text: "Aplica o método no seu dia a dia" },
               { icon: TrendingUp, text: "Acompanha seu progresso" },
               { icon: Scale, text: "Ajusta sua rotina com clareza e equilíbrio" },
