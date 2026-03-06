@@ -162,14 +162,16 @@ const ExportarPDF = () => {
         </div>
       </div>
 
-      {/* Print Header - only visible in print */}
-      <div className="hidden print:block text-center py-8 border-b-2 border-primary">
-        <h1 className="text-2xl md:text-3xl font-bold text-primary whitespace-nowrap">Planejamento Básico Pessoal</h1>
-        <p className="text-muted-foreground mt-2">Gerado em {new Date().toLocaleDateString('pt-BR')}</p>
-      </div>
+      {/* PDF Content - this div is captured for PDF generation */}
+      <div ref={contentRef} className="bg-white">
+        {/* PDF Header */}
+        <div className="text-center py-8 border-b-2 border-primary">
+          <h1 className="text-2xl md:text-3xl font-bold text-primary whitespace-nowrap">Planejamento Básico Pessoal</h1>
+          <p className="text-muted-foreground mt-2">Gerado em {new Date().toLocaleDateString('pt-BR')}</p>
+        </div>
 
-      {/* Content */}
-      <div className="max-w-4xl mx-auto p-6 space-y-6 print:p-4 print:space-y-4">
+        {/* Content */}
+        <div className="max-w-4xl mx-auto p-6 space-y-6">
         
         {/* 1. Avaliação dos Pilares */}
         {hasAvaliacoes && (
