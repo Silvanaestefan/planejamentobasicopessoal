@@ -78,6 +78,12 @@ const categoriasRotina: CategoriaRotina[] = [
     nome: "Trabalho",
     icon: <Briefcase className="h-5 w-5" />,
     tarefasPadrao: []
+  },
+  {
+    id: 10,
+    nome: "Outros",
+    icon: <ShieldCheck className="h-5 w-5" />,
+    tarefasPadrao: []
   }
 ];
 
