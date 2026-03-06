@@ -471,9 +471,12 @@ const ExportarPDF = () => {
             </CardContent>
           </Card>
         )}
+        </div>
+      </div>
 
-        {/* Navigation - hidden in print */}
-        <div className="flex justify-between pt-6 print:hidden">
+      {/* Navigation - hidden in PDF capture */}
+      <div className="max-w-4xl mx-auto px-6">
+        <div className="flex justify-between pt-6">
           <Button variant="outline" onClick={() => navigate("/organizacao-digital")}>
             Voltar
           </Button>
@@ -483,22 +486,6 @@ const ExportarPDF = () => {
         </div>
       </div>
 
-      {/* Print styles */}
-      <style>{`
-        @media print {
-          body { 
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-          }
-          .print\\:hidden { display: none !important; }
-          .print\\:block { display: block !important; }
-          .print\\:break-inside-avoid { break-inside: avoid; }
-          .print\\:shadow-none { box-shadow: none !important; }
-          .print\\:border { border: 1px solid #e5e7eb !important; }
-          .print\\:p-4 { padding: 1rem !important; }
-          .print\\:space-y-4 > * + * { margin-top: 1rem !important; }
-        }
-      `}</style>
       <NavigationMenu />
     </div>
   );
