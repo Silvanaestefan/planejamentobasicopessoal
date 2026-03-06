@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowLeft, Plus, Trash2, Calendar, Home, DollarSign, Heart, BookOpen, Palette, Sparkles, ChevronDown, ChevronRight } from "lucide-react";
+import { ArrowLeft, Plus, Trash2, Calendar, Home, DollarSign, Heart, BookOpen, Palette, Sparkles, ChevronDown, ChevronRight, TreePine, Briefcase, ShieldCheck } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { usePlanejamento, Tarefa } from "@/contexts/PlanejamentoContext";
 import NavigationMenu from "@/components/NavigationMenu";
@@ -41,7 +41,7 @@ const categoriasRotina: CategoriaRotina[] = [
   },
   {
     id: 4,
-    nome: "Cuidados Pessoais",
+    nome: "Saúde e Cuidados Pessoais",
     descricao: "(Exercício físico)",
     icon: <Heart className="h-5 w-5" />,
     tarefasPadrao: []
@@ -65,6 +65,18 @@ const categoriasRotina: CategoriaRotina[] = [
     nome: "Espiritual",
     descricao: "(Momento de reequilíbrio)",
     icon: <Sparkles className="h-5 w-5" />,
+    tarefasPadrao: []
+  },
+  {
+    id: 8,
+    nome: "Contato com a Natureza",
+    icon: <TreePine className="h-5 w-5" />,
+    tarefasPadrao: []
+  },
+  {
+    id: 9,
+    nome: "Trabalho",
+    icon: <Briefcase className="h-5 w-5" />,
     tarefasPadrao: []
   }
 ];
