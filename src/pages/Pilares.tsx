@@ -11,9 +11,9 @@ const pilares = [
   { id: 3, nome: "Educação", descricao: "Dedicação aos estudos, organização dos livros e deveres", icon: GraduationCap },
   { id: 4, nome: "Finanças", descricao: "Controle", icon: Wallet },
   { id: 6, nome: "Natureza", descricao: "Contato e preservação", icon: Leaf },
-  { id: 7, nome: "Lazer e Social", descricao: "", icon: Users },
+  { id: 7, nome: "Lazer e Social", descricao: "Hobby, festas, encontros", icon: Users },
   { id: 8, nome: "Espiritual", descricao: "Equilíbrio, oração, paz interior", icon: Sparkles },
-  { id: 5, nome: "Trabalho", descricao: "Tem trabalho remunerado ou voluntário", icon: Briefcase },
+  { id: 5, nome: "Trabalho", descricao: "Satisfação", icon: Briefcase },
 ];
 
 const Pilares = () => {
