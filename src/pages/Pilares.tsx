@@ -6,7 +6,7 @@ import { usePlanejamento } from "@/contexts/PlanejamentoContext";
 import NavigationMenu from "@/components/NavigationMenu";
 
 const pilares = [
-  { id: 1, nome: "Saúde e Cuidados Pessoais", descricao: "Exames, vacinação", icon: Heart },
+  { id: 1, nome: "Saúde e Cuidados Pessoais", descricao: "Baixar o app do SUS, organizar exames e carteira de vacinação, agendar consultas, exercícios físicos...", icon: Heart },
   { id: 2, nome: "Moradia", descricao: "Organização, limpeza, listas de compras", icon: Home },
   { id: 3, nome: "Educação", descricao: "Dedicação aos estudos, organização dos livros e deveres", icon: GraduationCap },
   { id: 4, nome: "Finanças", descricao: "Controlada", icon: Wallet },
