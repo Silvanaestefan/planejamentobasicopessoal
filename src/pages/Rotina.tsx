@@ -110,7 +110,7 @@ const Rotina = () => {
   const [tarefasPorCategoria, setTarefasPorCategoria] = useState<Record<number, Tarefa[]>>(inicializarTarefas);
   const [lixeira, setLixeira] = useState<Tarefa[]>(data.lixeiraRotina || []);
   const [novaTarefa, setNovaTarefa] = useState<Record<number, string>>({});
-  const [openCategories, setOpenCategories] = useState<number[]>(categoriasRotina.map(c => c.id));
+  const [openCategories, setOpenCategories] = useState<number[]>([]);
 
   const toggleCategory = (categoryId: number) => {
     setOpenCategories(prev =>
