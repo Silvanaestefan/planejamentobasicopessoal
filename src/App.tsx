@@ -4,6 +4,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { PlanejamentoProvider } from "@/contexts/PlanejamentoContext";
+import { AuthProvider } from "@/contexts/AuthContext";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import LandingPage from "./pages/LandingPage";
 import Index from "./pages/Index";
 import Comecar from "./pages/Comecar";
@@ -18,6 +20,10 @@ import Festas from "./pages/Festas";
 import Documentos from "./pages/Documentos";
 import OrganizacaoDigital from "./pages/OrganizacaoDigital";
 import ExportarPDF from "./pages/ExportarPDF";
+import Login from "./pages/Login";
+import Cadastro from "./pages/Cadastro";
+import EsqueciSenha from "./pages/EsqueciSenha";
+import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,30 +31,35 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <PlanejamentoProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/app" element={<Index />} />
-            <Route path="/comecar" element={<Comecar />} />
-            <Route path="/pilares" element={<Pilares />} />
-            <Route path="/metas" element={<Metas />} />
-            <Route path="/rotina" element={<Rotina />} />
-            <Route path="/horario-semanal" element={<HorarioSemanal />} />
-            <Route path="/planilha-financeira" element={<PlanilhaFinanceira />} />
-            <Route path="/mensal" element={<Mensal />} />
-            <Route path="/anual" element={<Anual />} />
-            <Route path="/festas" element={<Festas />} />
-            <Route path="/documentos" element={<Documentos />} />
-            <Route path="/organizacao-digital" element={<OrganizacaoDigital />} />
-            <Route path="/exportar-pdf" element={<ExportarPDF />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </PlanejamentoProvider>
+      <BrowserRouter>
+        <AuthProvider>
+          <PlanejamentoProvider>
+            <Toaster />
+            <Sonner />
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/cadastro" element={<Cadastro />} />
+              <Route path="/esqueci-senha" element={<EsqueciSenha />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/app" element={<ProtectedRoute><Index /></ProtectedRoute>} />
+              <Route path="/comecar" element={<ProtectedRoute><Comecar /></ProtectedRoute>} />
+              <Route path="/pilares" element={<ProtectedRoute><Pilares /></ProtectedRoute>} />
+              <Route path="/metas" element={<ProtectedRoute><Metas /></ProtectedRoute>} />
+              <Route path="/rotina" element={<ProtectedRoute><Rotina /></ProtectedRoute>} />
+              <Route path="/horario-semanal" element={<ProtectedRoute><HorarioSemanal /></ProtectedRoute>} />
+              <Route path="/planilha-financeira" element={<ProtectedRoute><PlanilhaFinanceira /></ProtectedRoute>} />
+              <Route path="/mensal" element={<ProtectedRoute><Mensal /></ProtectedRoute>} />
+              <Route path="/anual" element={<ProtectedRoute><Anual /></ProtectedRoute>} />
+              <Route path="/festas" element={<ProtectedRoute><Festas /></ProtectedRoute>} />
+              <Route path="/documentos" element={<ProtectedRoute><Documentos /></ProtectedRoute>} />
+              <Route path="/organizacao-digital" element={<ProtectedRoute><OrganizacaoDigital /></ProtectedRoute>} />
+              <Route path="/exportar-pdf" element={<ProtectedRoute><ExportarPDF /></ProtectedRoute>} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </PlanejamentoProvider>
+        </AuthProvider>
+      </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );
