@@ -81,7 +81,7 @@ const defaultData: PlanejamentoData = {
   planejamentoAnual: {
     "Janeiro": ["DPVAT"],
     "Fevereiro": ["Carnaval", "IPTU", "Taxa de Bombeiro"],
-    "Março": ["Imposto de Renda (IR) — juntar os recibos para a declaração"],
+    "Março": ["Imposto de Renda (IR) — separar os boletos e extratos"],
     "Abril": [],
     "Maio": [],
     "Junho": [],
