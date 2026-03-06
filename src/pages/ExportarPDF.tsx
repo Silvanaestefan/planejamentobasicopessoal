@@ -137,15 +137,27 @@ const ExportarPDF = () => {
             </Button>
             <div className="flex-1">
               <h1 className="text-xl md:text-3xl font-bold">Planejamento Básico Pessoal</h1>
-              <p className="text-primary-foreground/80 text-sm md:text-base">Visualize e imprima seu planejamento</p>
+              <p className="text-primary-foreground/80 text-sm md:text-base">Baixe ou compartilhe seu planejamento</p>
             </div>
-            <Button 
-              onClick={handlePrint}
-              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
-            >
-              <FileDown className="h-4 w-4 mr-2" />
-              Imprimir / Salvar PDF
-            </Button>
+            <div className="flex gap-2">
+              <Button 
+                onClick={handleSharePDF}
+                disabled={generating}
+                variant="outline"
+                className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/20"
+              >
+                {generating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Share2 className="h-4 w-4" />}
+                <span className="hidden sm:inline ml-2">Compartilhar</span>
+              </Button>
+              <Button 
+                onClick={handleDownloadPDF}
+                disabled={generating}
+                className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+              >
+                {generating ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <FileDown className="h-4 w-4 mr-2" />}
+                Baixar PDF
+              </Button>
+            </div>
           </div>
         </div>
       </div>
