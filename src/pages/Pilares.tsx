@@ -9,7 +9,7 @@ const pilares = [
   { id: 1, nome: "Saúde e Cuidados Pessoais", descricao: "Baixar o app do SUS, organizar exames e carteira de vacinação, agendar consultas, exercícios físicos...", icon: Heart },
   { id: 2, nome: "Moradia", descricao: "Organização, limpeza, listas de compras", icon: Home },
   { id: 3, nome: "Educação", descricao: "Dedicação aos estudos, organização dos livros e deveres", icon: GraduationCap },
-  { id: 4, nome: "Finanças", descricao: "Controlada", icon: Wallet },
+  { id: 4, nome: "Finanças", descricao: "Controle", icon: Wallet },
   { id: 6, nome: "Natureza", descricao: "Este contato é toda semana?", icon: Leaf },
   { id: 7, nome: "Lazer e Social", descricao: "", icon: Users },
   { id: 8, nome: "Espiritual", descricao: "Equilíbrio, oração, paz interior", icon: Sparkles },
