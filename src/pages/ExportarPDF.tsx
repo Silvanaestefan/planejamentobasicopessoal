@@ -30,9 +30,82 @@ const periodosLabel: Record<string, string> = {
 const ExportarPDF = () => {
   const navigate = useNavigate();
   const { data } = usePlanejamento();
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [generating, setGenerating] = useState(false);
 
-  const handlePrint = () => {
-    window.print();
+  const generatePDFBlob = async (): Promise<Blob | null> => {
+    const element = contentRef.current;
+    if (!element) return null;
+
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+      logging: false,
+      backgroundColor: "#ffffff",
+    });
+
+    const imgWidth = 210;
+    const pageHeight = 297;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    const pdf = new jsPDF("p", "mm", "a4");
+    const imgData = canvas.toDataURL("image/png");
+
+    let heightLeft = imgHeight;
+    let position = 0;
+
+    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+
+    while (heightLeft > 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
+
+    return pdf.output("blob");
+  };
+
+  const handleDownloadPDF = async () => {
+    setGenerating(true);
+    try {
+      const blob = await generatePDFBlob();
+      if (!blob) return;
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "planejamento-basico-pessoal.pdf";
+      link.click();
+      URL.revokeObjectURL(url);
+    } finally {
+      setGenerating(false);
+    }
+  };
+
+  const handleSharePDF = async () => {
+    setGenerating(true);
+    try {
+      const blob = await generatePDFBlob();
+      if (!blob) return;
+      const file = new File([blob], "planejamento-basico-pessoal.pdf", { type: "application/pdf" });
+
+      if (navigator.share && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          title: "Planejamento Básico Pessoal",
+          files: [file],
+        });
+      } else {
+        // Fallback: download
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "planejamento-basico-pessoal.pdf";
+        link.click();
+        URL.revokeObjectURL(url);
+      }
+    } finally {
+      setGenerating(false);
+    }
   };
 
   // Check if there's any data filled
