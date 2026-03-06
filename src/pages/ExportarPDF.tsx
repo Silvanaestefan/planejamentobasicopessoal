@@ -1,9 +1,12 @@
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePlanejamento } from "@/contexts/PlanejamentoContext";
-import { ArrowLeft, FileDown, Heart, Home, GraduationCap, Wallet, Briefcase, Leaf, Users, Sparkles } from "lucide-react";
+import { ArrowLeft, FileDown, Share2, Heart, Home, GraduationCap, Wallet, Briefcase, Leaf, Users, Sparkles, Loader2 } from "lucide-react";
 import NavigationMenu from "@/components/NavigationMenu";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 
 const pilaresInfo = [
   { id: 1, nome: "Saúde e Cuidados Pessoais", icon: Heart },
@@ -27,9 +30,82 @@ const periodosLabel: Record<string, string> = {
 const ExportarPDF = () => {
   const navigate = useNavigate();
   const { data } = usePlanejamento();
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [generating, setGenerating] = useState(false);
 
-  const handlePrint = () => {
-    window.print();
+  const generatePDFBlob = async (): Promise<Blob | null> => {
+    const element = contentRef.current;
+    if (!element) return null;
+
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+      logging: false,
+      backgroundColor: "#ffffff",
+    });
+
+    const imgWidth = 210;
+    const pageHeight = 297;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    const pdf = new jsPDF("p", "mm", "a4");
+    const imgData = canvas.toDataURL("image/png");
+
+    let heightLeft = imgHeight;
+    let position = 0;
+
+    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+
+    while (heightLeft > 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
+
+    return pdf.output("blob");
+  };
+
+  const handleDownloadPDF = async () => {
+    setGenerating(true);
+    try {
+      const blob = await generatePDFBlob();
+      if (!blob) return;
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "planejamento-basico-pessoal.pdf";
+      link.click();
+      URL.revokeObjectURL(url);
+    } finally {
+      setGenerating(false);
+    }
+  };
+
+  const handleSharePDF = async () => {
+    setGenerating(true);
+    try {
+      const blob = await generatePDFBlob();
+      if (!blob) return;
+      const file = new File([blob], "planejamento-basico-pessoal.pdf", { type: "application/pdf" });
+
+      if (navigator.share && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          title: "Planejamento Básico Pessoal",
+          files: [file],
+        });
+      } else {
+        // Fallback: download
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "planejamento-basico-pessoal.pdf";
+        link.click();
+        URL.revokeObjectURL(url);
+      }
+    } finally {
+      setGenerating(false);
+    }
   };
 
   // Check if there's any data filled
@@ -61,27 +137,41 @@ const ExportarPDF = () => {
             </Button>
             <div className="flex-1">
               <h1 className="text-xl md:text-3xl font-bold">Planejamento Básico Pessoal</h1>
-              <p className="text-primary-foreground/80 text-sm md:text-base">Visualize e imprima seu planejamento</p>
+              <p className="text-primary-foreground/80 text-sm md:text-base">Baixe ou compartilhe seu planejamento</p>
             </div>
-            <Button 
-              onClick={handlePrint}
-              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
-            >
-              <FileDown className="h-4 w-4 mr-2" />
-              Imprimir / Salvar PDF
-            </Button>
+            <div className="flex gap-2">
+              <Button 
+                onClick={handleSharePDF}
+                disabled={generating}
+                variant="outline"
+                className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/20"
+              >
+                {generating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Share2 className="h-4 w-4" />}
+                <span className="hidden sm:inline ml-2">Compartilhar</span>
+              </Button>
+              <Button 
+                onClick={handleDownloadPDF}
+                disabled={generating}
+                className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+              >
+                {generating ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <FileDown className="h-4 w-4 mr-2" />}
+                Baixar PDF
+              </Button>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Print Header - only visible in print */}
-      <div className="hidden print:block text-center py-8 border-b-2 border-primary">
-        <h1 className="text-2xl md:text-3xl font-bold text-primary whitespace-nowrap">Planejamento Básico Pessoal</h1>
-        <p className="text-muted-foreground mt-2">Gerado em {new Date().toLocaleDateString('pt-BR')}</p>
-      </div>
+      {/* PDF Content - this div is captured for PDF generation */}
+      <div ref={contentRef} className="bg-white">
+        {/* PDF Header */}
+        <div className="text-center py-8 border-b-2 border-primary">
+          <h1 className="text-2xl md:text-3xl font-bold text-primary whitespace-nowrap">Planejamento Básico Pessoal</h1>
+          <p className="text-muted-foreground mt-2">Gerado em {new Date().toLocaleDateString('pt-BR')}</p>
+        </div>
 
-      {/* Content */}
-      <div className="max-w-4xl mx-auto p-6 space-y-6 print:p-4 print:space-y-4">
+        {/* Content */}
+        <div className="max-w-4xl mx-auto p-6 space-y-6">
         
         {/* 1. Avaliação dos Pilares */}
         {hasAvaliacoes && (
@@ -381,9 +471,12 @@ const ExportarPDF = () => {
             </CardContent>
           </Card>
         )}
+        </div>
+      </div>
 
-        {/* Navigation - hidden in print */}
-        <div className="flex justify-between pt-6 print:hidden">
+      {/* Navigation - hidden in PDF capture */}
+      <div className="max-w-4xl mx-auto px-6">
+        <div className="flex justify-between pt-6">
           <Button variant="outline" onClick={() => navigate("/organizacao-digital")}>
             Voltar
           </Button>
@@ -393,22 +486,6 @@ const ExportarPDF = () => {
         </div>
       </div>
 
-      {/* Print styles */}
-      <style>{`
-        @media print {
-          body { 
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-          }
-          .print\\:hidden { display: none !important; }
-          .print\\:block { display: block !important; }
-          .print\\:break-inside-avoid { break-inside: avoid; }
-          .print\\:shadow-none { box-shadow: none !important; }
-          .print\\:border { border: 1px solid #e5e7eb !important; }
-          .print\\:p-4 { padding: 1rem !important; }
-          .print\\:space-y-4 > * + * { margin-top: 1rem !important; }
-        }
-      `}</style>
       <NavigationMenu />
     </div>
   );
