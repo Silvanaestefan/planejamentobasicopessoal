@@ -414,6 +414,7 @@ const LandingPage = () => {
           </div>
         </div>
       </footer>
+      <PWAInstallButton />
     </div>
   );
 };
