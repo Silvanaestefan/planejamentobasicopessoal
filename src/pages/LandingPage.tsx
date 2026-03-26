@@ -356,7 +356,7 @@ const LandingPage = () => {
                 Recomendado
               </div>
               <h3 className="text-xl font-bold mb-2">Premium</h3>
-              <p className="text-3xl font-bold mb-1">R$ 9,90<span className="text-base font-normal text-muted-foreground">/mês</span></p>
+              <p className="text-3xl font-bold mb-1">R$ 0,99<span className="text-base font-normal text-muted-foreground">/mês</span></p>
               <p className="text-sm text-muted-foreground mb-6">Após os 30 dias grátis</p>
               <ul className="space-y-3 mb-8 flex-1">
                 {[
