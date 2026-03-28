@@ -109,7 +109,7 @@ const LandingPage = () => {
             Organize suas metas, tarefas e finanças em um só lugar.
           </p>
           <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-            O app simples e eficiente para quem quer ter controle da própria vida.
+            O app 100% gratuito para quem quer ter controle da própria vida.
           </p>
 
           <div className="flex justify-center mb-10">
@@ -124,6 +124,10 @@ const LandingPage = () => {
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <Check className="w-5 h-5 text-primary" />
+              <span>100% Gratuito</span>
+            </div>
             <div className="flex items-center gap-2">
               <Check className="w-5 h-5 text-primary" />
               <span>Sem anúncios</span>
@@ -306,75 +310,6 @@ const LandingPage = () => {
                 <span className="font-medium">{step.text}</span>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Section */}
-      <section className="py-16 bg-muted/30 px-4" id="planos">
-        <div className="container mx-auto max-w-4xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Planos
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Comece grátis por 30 dias. Depois, escolha o plano ideal para você.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-            {/* Free Plan */}
-            <Card className="p-6 flex flex-col">
-              <h3 className="text-xl font-bold mb-2">Gratuito</h3>
-              <p className="text-3xl font-bold mb-1">R$ 0</p>
-              <p className="text-sm text-muted-foreground mb-6">30 dias de teste</p>
-              <ul className="space-y-3 mb-8 flex-1">
-                {[
-                  "Acesso a todos os recursos",
-                  "8 pilares organizados",
-                  "Metas e rotinas",
-                  "Planilha financeira",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-2 text-sm">
-                    <Check className="w-4 h-4 text-primary flex-shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-                <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <X className="w-4 h-4 flex-shrink-0" />
-                  <span>Exportar PDF</span>
-                </li>
-              </ul>
-              <Button variant="outline" className="w-full" onClick={() => navigate("/cadastro")}>
-                Começar Grátis
-              </Button>
-            </Card>
-
-            {/* Premium Plan */}
-            <Card className="p-6 flex flex-col border-primary ring-2 ring-primary relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full">
-                Recomendado
-              </div>
-              <h3 className="text-xl font-bold mb-2">Premium</h3>
-              <p className="text-3xl font-bold mb-1">R$ 0,99<span className="text-base font-normal text-muted-foreground">/mês</span></p>
-              <p className="text-sm text-muted-foreground mb-6">Após os 30 dias grátis</p>
-              <ul className="space-y-3 mb-8 flex-1">
-                {[
-                  "Tudo do plano gratuito",
-                  "Exportar e compartilhar PDF",
-                  "Acesso ilimitado",
-                  "Suporte prioritário",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-2 text-sm">
-                    <Check className="w-4 h-4 text-primary flex-shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <Button className="w-full" onClick={() => navigate("/cadastro")}>
-                Assinar Agora
-              </Button>
-            </Card>
           </div>
         </div>
       </section>
