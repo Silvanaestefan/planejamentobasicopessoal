@@ -33,6 +33,8 @@ const ExportarPDF = () => {
   const { data } = usePlanejamento();
   const contentRef = useRef<HTMLDivElement>(null);
   const [generating, setGenerating] = useState(false);
+  const [showGate, setShowGate] = useState(false);
+  const [gateAction, setGateAction] = useState<"download" | "share">("download");
 
   const generatePDFBlob = async (): Promise<Blob | null> => {
     const element = contentRef.current;
