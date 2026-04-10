@@ -158,7 +158,7 @@ const ExportarPDF = () => {
             </div>
             <div className="flex gap-2">
               <Button 
-                onClick={handleSharePDF}
+                onClick={() => openGate("share")}
                 disabled={generating}
                 variant="outline"
                 className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/20"
@@ -167,7 +167,7 @@ const ExportarPDF = () => {
                 <span className="hidden sm:inline ml-2">Compartilhar</span>
               </Button>
               <Button 
-                onClick={handleDownloadPDF}
+                onClick={() => openGate("download")}
                 disabled={generating}
                 className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
               >
