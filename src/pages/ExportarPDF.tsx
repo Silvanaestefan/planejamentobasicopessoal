@@ -503,6 +503,13 @@ const ExportarPDF = () => {
         </div>
       </div>
 
+      {showGate && (
+        <SubscriptionGate
+          onProceed={handleGateProceed}
+          generating={generating}
+        />
+      )}
+
       <NavigationMenu />
     </div>
   );
