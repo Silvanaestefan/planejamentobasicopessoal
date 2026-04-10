@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePlanejamento } from "@/contexts/PlanejamentoContext";
 import { ArrowLeft, FileDown, Share2, Heart, Home, GraduationCap, Wallet, Briefcase, Leaf, Users, Sparkles, Loader2 } from "lucide-react";
+import SubscriptionGate from "@/components/SubscriptionGate";
 import NavigationMenu from "@/components/NavigationMenu";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
@@ -32,6 +33,8 @@ const ExportarPDF = () => {
   const { data } = usePlanejamento();
   const contentRef = useRef<HTMLDivElement>(null);
   const [generating, setGenerating] = useState(false);
+  const [showGate, setShowGate] = useState(false);
+  const [gateAction, setGateAction] = useState<"download" | "share">("download");
 
   const generatePDFBlob = async (): Promise<Blob | null> => {
     const element = contentRef.current;
@@ -79,6 +82,7 @@ const ExportarPDF = () => {
       URL.revokeObjectURL(url);
     } finally {
       setGenerating(false);
+      setShowGate(false);
     }
   };
 
@@ -95,7 +99,6 @@ const ExportarPDF = () => {
           files: [file],
         });
       } else {
-        // Fallback: download
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
@@ -105,6 +108,20 @@ const ExportarPDF = () => {
       }
     } finally {
       setGenerating(false);
+      setShowGate(false);
+    }
+  };
+
+  const openGate = (action: "download" | "share") => {
+    setGateAction(action);
+    setShowGate(true);
+  };
+
+  const handleGateProceed = () => {
+    if (gateAction === "download") {
+      handleDownloadPDF();
+    } else {
+      handleSharePDF();
     }
   };
 
@@ -141,7 +158,7 @@ const ExportarPDF = () => {
             </div>
             <div className="flex gap-2">
               <Button 
-                onClick={handleSharePDF}
+                onClick={() => openGate("share")}
                 disabled={generating}
                 variant="outline"
                 className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/20"
@@ -150,7 +167,7 @@ const ExportarPDF = () => {
                 <span className="hidden sm:inline ml-2">Compartilhar</span>
               </Button>
               <Button 
-                onClick={handleDownloadPDF}
+                onClick={() => openGate("download")}
                 disabled={generating}
                 className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
               >
@@ -485,6 +502,13 @@ const ExportarPDF = () => {
           </Button>
         </div>
       </div>
+
+      {showGate && (
+        <SubscriptionGate
+          onProceed={handleGateProceed}
+          generating={generating}
+        />
+      )}
 
       <NavigationMenu />
     </div>
