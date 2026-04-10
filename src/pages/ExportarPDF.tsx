@@ -82,6 +82,7 @@ const ExportarPDF = () => {
       URL.revokeObjectURL(url);
     } finally {
       setGenerating(false);
+      setShowGate(false);
     }
   };
 
@@ -98,7 +99,6 @@ const ExportarPDF = () => {
           files: [file],
         });
       } else {
-        // Fallback: download
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
@@ -108,6 +108,20 @@ const ExportarPDF = () => {
       }
     } finally {
       setGenerating(false);
+      setShowGate(false);
+    }
+  };
+
+  const openGate = (action: "download" | "share") => {
+    setGateAction(action);
+    setShowGate(true);
+  };
+
+  const handleGateProceed = () => {
+    if (gateAction === "download") {
+      handleDownloadPDF();
+    } else {
+      handleSharePDF();
     }
   };
 
