@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePlanejamento } from "@/contexts/PlanejamentoContext";
 import { ArrowLeft, FileDown, Share2, Heart, Home, GraduationCap, Wallet, Briefcase, Leaf, Users, Sparkles, Loader2 } from "lucide-react";
+import SubscriptionGate from "@/components/SubscriptionGate";
 import NavigationMenu from "@/components/NavigationMenu";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
