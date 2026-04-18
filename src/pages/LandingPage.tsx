@@ -105,11 +105,8 @@ const LandingPage = () => {
             Seu planejamento pessoal simplificado
           </h1>
           
-          <p className="text-lg md:text-xl text-muted-foreground mb-4 max-w-2xl mx-auto">
-            Organize suas metas, tarefas e finanças em um só lugar.
-          </p>
           <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-            O app 100% gratuito para quem quer ter controle da própria vida.
+            Organize suas metas, tarefas e finanças em um só lugar.
           </p>
 
           <div className="flex justify-center mb-10">
@@ -124,14 +121,6 @@ const LandingPage = () => {
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <Check className="w-5 h-5 text-primary" />
-              <span>100% Gratuito</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Check className="w-5 h-5 text-primary" />
-              <span>Sem anúncios</span>
-            </div>
             <div className="flex items-center gap-2">
               <Check className="w-5 h-5 text-primary" />
               <span>Seus dados seguros</span>
