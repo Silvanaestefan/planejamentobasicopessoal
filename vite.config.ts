@@ -25,7 +25,7 @@ export default defineConfig(({ mode }) => ({
       },
       manifest: {
         name: "Planejamento Básico Pessoal",
-        short_name: "Planejamento",
+        short_name: "PBP",
         description: "Organize sua vida de forma simples e consciente.",
         theme_color: "#2D6A4F",
         background_color: "#ffffff",
