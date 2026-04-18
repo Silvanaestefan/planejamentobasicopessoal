@@ -1,31 +1,51 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
-import { CalendarCheck, Eye, EyeOff } from "lucide-react";
+import { CalendarCheck, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const Cadastro = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  const [code, setCode] = useState("");
+  const [step, setStep] = useState<"email" | "code">("email");
   const [loading, setLoading] = useState(false);
-  
-  const { signUp } = useAuth();
+
+  const { sendOtp, verifyOtp } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSendCode = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
-    const { error } = await signUp(email, password);
-
+    const { error } = await sendOtp(email);
     if (error) {
       toast({
-        title: "Erro ao criar conta",
+        title: "Erro ao enviar código",
         description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Código enviado!",
+        description: "Verifique seu email e digite o código de 6 dígitos.",
+      });
+      setStep("code");
+    }
+    setLoading(false);
+  };
+
+  const handleVerify = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (code.length !== 6) return;
+    setLoading(true);
+    const { error } = await verifyOtp(email, code);
+    if (error) {
+      toast({
+        title: "Código inválido",
+        description: "Verifique o código e tente novamente.",
         variant: "destructive",
       });
     } else {
@@ -34,6 +54,16 @@ const Cadastro = () => {
     setLoading(false);
   };
 
+  const handleResend = async () => {
+    setLoading(true);
+    const { error } = await sendOtp(email);
+    if (error) {
+      toast({ title: "Erro ao reenviar", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "Código reenviado!", description: "Verifique seu email." });
+    }
+    setLoading(false);
+  };
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6 py-12">
@@ -42,49 +72,71 @@ const Cadastro = () => {
           <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto">
             <CalendarCheck className="w-8 h-8 text-primary" />
           </div>
-          <h1 className="text-2xl font-bold text-foreground">Criar conta</h1>
+          <h1 className="text-2xl font-bold text-foreground">
+            {step === "email" ? "Criar conta" : "Digite o código"}
+          </h1>
           <p className="text-muted-foreground text-sm">
-            Acesse seu planejamento pessoal
+            {step === "email"
+              ? "Acesse seu planejamento pessoal"
+              : `Enviamos um código de 6 dígitos para ${email}`}
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">Email</label>
-            <Input
-              type="email"
-              placeholder="seu@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">Senha</label>
-            <div className="relative">
+        {step === "email" ? (
+          <form onSubmit={handleSendCode} className="space-y-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-foreground">Email</label>
               <Input
-                type={showPassword ? "text" : "password"}
-                placeholder="Mínimo 6 caracteres"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                type="email"
+                placeholder="seu@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
-                minLength={6}
               />
+            </div>
+
+            <Button type="submit" className="w-full" size="lg" disabled={loading}>
+              {loading ? "Enviando..." : "Começar"}
+            </Button>
+          </form>
+        ) : (
+          <form onSubmit={handleVerify} className="space-y-4">
+            <div className="flex justify-center">
+              <InputOTP maxLength={6} value={code} onChange={setCode}>
+                <InputOTPGroup>
+                  <InputOTPSlot index={0} />
+                  <InputOTPSlot index={1} />
+                  <InputOTPSlot index={2} />
+                  <InputOTPSlot index={3} />
+                  <InputOTPSlot index={4} />
+                  <InputOTPSlot index={5} />
+                </InputOTPGroup>
+              </InputOTP>
+            </div>
+
+            <Button type="submit" className="w-full" size="lg" disabled={loading || code.length !== 6}>
+              {loading ? "Verificando..." : "Confirmar"}
+            </Button>
+
+            <div className="flex items-center justify-between text-sm">
               <button
                 type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                onClick={() => { setStep("email"); setCode(""); }}
+                className="text-muted-foreground hover:text-foreground flex items-center gap-1"
               >
-                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                <ArrowLeft className="w-3 h-3" /> Trocar email
+              </button>
+              <button
+                type="button"
+                onClick={handleResend}
+                disabled={loading}
+                className="text-primary hover:underline"
+              >
+                Reenviar código
               </button>
             </div>
-          </div>
-
-          <Button type="submit" className="w-full" size="lg" disabled={loading}>
-            {loading ? "Criando..." : "Começar"}
-          </Button>
-        </form>
+          </form>
+        )}
 
         <p className="text-center text-sm text-muted-foreground">
           Já tem conta?{" "}
