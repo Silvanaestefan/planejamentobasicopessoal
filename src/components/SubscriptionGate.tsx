@@ -10,7 +10,7 @@ interface SubscriptionGateProps {
 
 const SubscriptionGate = ({ onProceed, generating }: SubscriptionGateProps) => {
   const [showAd, setShowAd] = useState(false);
-  const [adCountdown, setAdCountdown] = useState(15);
+  const [adCountdown, setAdCountdown] = useState(10);
   const [adFinished, setAdFinished] = useState(false);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const SubscriptionGate = ({ onProceed, generating }: SubscriptionGateProps) => {
 
   const handleWatchAd = () => {
     setShowAd(true);
-    setAdCountdown(15);
+    setAdCountdown(10);
     setAdFinished(false);
   };
 
@@ -52,7 +52,7 @@ const SubscriptionGate = ({ onProceed, generating }: SubscriptionGateProps) => {
             <div className="w-full bg-muted rounded-full h-2">
               <div
                 className="bg-primary h-2 rounded-full transition-all duration-1000"
-                style={{ width: `${((15 - adCountdown) / 15) * 100}%` }}
+                style={{ width: `${((10 - adCountdown) / 10) * 100}%` }}
               />
             </div>
           </CardContent>
@@ -135,7 +135,7 @@ const SubscriptionGate = ({ onProceed, generating }: SubscriptionGateProps) => {
         <Card>
           <CardContent className="py-6 text-center space-y-3">
             <p className="text-muted-foreground text-sm">
-              Ou continue gratuitamente assistindo uma propaganda de 15 segundos
+              Ou continue gratuitamente assistindo uma propaganda de 10 segundos
             </p>
             <Button
               variant="outline"
