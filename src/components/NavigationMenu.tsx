@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 const pages = [
@@ -18,23 +18,35 @@ const pages = [
   { path: "/exportar-pdf", label: "PDF" },
 ];
 
-// Singleton para manter referência ao container entre navegações
-let scrollContainer: HTMLDivElement | null = null;
+const SCROLL_KEY = "nav-menu-scroll-position";
 
 const NavigationMenu = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
-  // Manter referência ao container
-  const setContainerRef = (el: HTMLDivElement | null) => {
-    if (el && !scrollContainer) {
-      scrollContainer = el;
+  // Restaurar posição de scroll salva ao montar
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const savedPosition = sessionStorage.getItem(SCROLL_KEY);
+    if (savedPosition) {
+      container.scrollLeft = parseInt(savedPosition, 10);
     }
-  };
+
+    // Salvar a posição sempre que o usuário rolar manualmente
+    const handleScroll = () => {
+      sessionStorage.setItem(SCROLL_KEY, String(container.scrollLeft));
+    };
+
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-card border-t border-border shadow-lg z-50">
-      <div ref={setContainerRef} className="overflow-x-auto scrollbar-hide">
+      <div ref={containerRef} className="overflow-x-auto scrollbar-hide">
         <div className="flex gap-1 p-2 min-w-max justify-center">
           {pages.map((page, index) => {
             const isActive = location.pathname === page.path;
