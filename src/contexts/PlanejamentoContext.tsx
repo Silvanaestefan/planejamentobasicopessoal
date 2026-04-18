@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import React, { createContext, useContext, useState, useEffect, ReactNode, useRef } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 
 // Types
 export interface Tarefa {
@@ -27,27 +29,18 @@ export interface FestaType {
 }
 
 export interface PlanejamentoData {
-  // Pilares (avaliações de 1-5)
   avaliacoesPilares: Record<number, number>;
-  // Metas por pilar
   metasPorPilar: Record<number, string[]>;
-  // Rotina por categoria
   tarefasRotina: Record<number, Tarefa[]>;
-  // Lixeira de tarefas da rotina
   lixeiraRotina: Tarefa[];
-  // Horário semanal
   horarioSemanal: Record<string, string[]>;
-  // Planilha financeira
   despesas: ItemFinanceiro[];
   cabecalhoDespesas: string;
   docsPessoais: Documento[];
   docsResidencia: Documento[];
   docsImoveis: Documento[];
-  // Mensal
   listasCompras: Record<string, string[]>;
-  // Anual
   planejamentoAnual: Record<string, string[]>;
-  // Festas
   festas: FestaType[];
 }
 
@@ -106,7 +99,9 @@ const defaultData: PlanejamentoData = {
   ]
 };
 
-const STORAGE_KEY = "planejamento-basico-pessoal";
+// Per-user localStorage key — prevents data leakage between accounts on the same device
+const storageKeyFor = (userId: string | null | undefined) =>
+  userId ? `planejamento-basico-pessoal:${userId}` : `planejamento-basico-pessoal:guest`;
 
 interface PlanejamentoContextType {
   data: PlanejamentoData;
@@ -117,36 +112,108 @@ interface PlanejamentoContextType {
 const PlanejamentoContext = createContext<PlanejamentoContextType | undefined>(undefined);
 
 export const PlanejamentoProvider = ({ children }: { children: ReactNode }) => {
-  const [data, setData] = useState<PlanejamentoData>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        // Merge with defaults to ensure all fields exist
-        return { ...defaultData, ...parsed };
-      }
-    } catch (e) {
-      console.error("Error loading saved data:", e);
-    }
-    return defaultData;
-  });
+  const { user, loading: authLoading } = useAuth();
+  const [data, setData] = useState<PlanejamentoData>(defaultData);
+  const [hydrated, setHydrated] = useState(false);
+  const currentUserIdRef = useRef<string | null>(null);
+  const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Save to localStorage whenever data changes
+  // Load data whenever the authenticated user changes
   useEffect(() => {
+    if (authLoading) return;
+
+    const userId = user?.id ?? null;
+    currentUserIdRef.current = userId;
+    setHydrated(false);
+
+    const loadData = async () => {
+      // 1) Try local cache scoped to this user
+      let initial: PlanejamentoData = defaultData;
+      try {
+        const saved = localStorage.getItem(storageKeyFor(userId));
+        if (saved) {
+          initial = { ...defaultData, ...JSON.parse(saved) };
+        }
+      } catch (e) {
+        console.error("Error loading local data:", e);
+      }
+
+      // 2) If logged in, fetch from backend (source of truth) and override
+      if (userId) {
+        try {
+          const { data: row, error } = await supabase
+            .from("planejamento_data")
+            .select("data")
+            .eq("user_id", userId)
+            .maybeSingle();
+
+          if (!error && row?.data) {
+            initial = { ...defaultData, ...(row.data as Partial<PlanejamentoData>) };
+          }
+        } catch (e) {
+          console.error("Error loading remote data:", e);
+        }
+      }
+
+      // Only apply if user hasn't changed mid-flight
+      if (currentUserIdRef.current === userId) {
+        setData(initial);
+        setHydrated(true);
+      }
+    };
+
+    loadData();
+  }, [user?.id, authLoading]);
+
+  // Persist on change: localStorage immediately, Supabase debounced
+  useEffect(() => {
+    if (!hydrated) return;
+    const userId = currentUserIdRef.current;
+
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      localStorage.setItem(storageKeyFor(userId), JSON.stringify(data));
     } catch (e) {
-      console.error("Error saving data:", e);
+      console.error("Error saving local data:", e);
     }
-  }, [data]);
+
+    if (!userId) return;
+
+    if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
+    saveTimeoutRef.current = setTimeout(async () => {
+      try {
+        await supabase
+          .from("planejamento_data")
+          .upsert(
+            { user_id: userId, data: data as any, updated_at: new Date().toISOString() },
+            { onConflict: "user_id" }
+          );
+      } catch (e) {
+        console.error("Error saving remote data:", e);
+      }
+    }, 800);
+  }, [data, hydrated]);
 
   const updateData = (updates: Partial<PlanejamentoData>) => {
     setData(prev => ({ ...prev, ...updates }));
   };
 
   const resetData = () => {
+    const userId = currentUserIdRef.current;
     setData(defaultData);
-    localStorage.removeItem(STORAGE_KEY);
+    try {
+      localStorage.removeItem(storageKeyFor(userId));
+    } catch {}
+    if (userId) {
+      supabase
+        .from("planejamento_data")
+        .upsert(
+          { user_id: userId, data: defaultData as any, updated_at: new Date().toISOString() },
+          { onConflict: "user_id" }
+        )
+        .then(({ error }) => {
+          if (error) console.error("Error resetting remote data:", error);
+        });
+    }
   };
 
   return (
