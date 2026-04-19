@@ -59,7 +59,7 @@ const LandingPage = () => {
               Entrar
             </Button>
             <Button onClick={() => navigate("/cadastro")}>
-              Criar Conta Grátis
+              Criar Conta
             </Button>
           </div>
 
@@ -86,7 +86,7 @@ const LandingPage = () => {
                 Entrar
               </Button>
               <Button className="w-full" onClick={() => navigate("/cadastro")}>
-                Criar Conta Grátis
+                Criar Conta
               </Button>
             </div>
           </div>
