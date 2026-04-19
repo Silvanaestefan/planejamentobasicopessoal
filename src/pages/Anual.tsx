@@ -15,6 +15,18 @@ type MesesType = {
   [key: string]: string[];
 };
 
+const ORDEM_MESES = [
+  "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+  "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro",
+];
+
+const ordenarMeses = (mesesObj: MesesType): string[] => {
+  const chaves = Object.keys(mesesObj);
+  return ORDEM_MESES.filter(m => chaves.includes(m)).concat(
+    chaves.filter(m => !ORDEM_MESES.includes(m))
+  );
+};
+
 const Anual = () => {
   const navigate = useNavigate();
   const { data, updateData } = usePlanejamento();
@@ -85,7 +97,7 @@ const Anual = () => {
 
         {/* Lista de Meses */}
         <div className="space-y-3">
-          {Object.keys(meses).map((mes) => (
+          {ordenarMeses(meses).map((mes) => (
             <Collapsible
               key={mes}
               open={openMeses.includes(mes)}
