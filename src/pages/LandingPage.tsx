@@ -105,8 +105,11 @@ const LandingPage = () => {
             Seu planejamento pessoal simplificado
           </h1>
 
+          <p className="text-lg md:text-xl text-muted-foreground mb-4 max-w-2xl mx-auto">
+            Organize suas metas, tarefas e finanças em um só lugar.
+          </p>
           <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-            Organize suas metas, tarefas e finanças em um só lugar. Baseado no Ebook Planejamento Básico Pessoal.
+            Baseado no Ebook Planejamento Básico Pessoal.
           </p>
 
           <div className="flex justify-center mb-10">
