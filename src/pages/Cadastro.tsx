@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
-import { CalendarCheck, Eye, EyeOff } from "lucide-react";
+import { CalendarCheck, Eye, EyeOff, LogOut } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const Cadastro = () => {
@@ -12,9 +12,19 @@ const Cadastro = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { signUp } = useAuth();
+  const { signUp, signOut, user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  const handleSignOut = async () => {
+    await signOut();
+    toast({
+      title: "Você saiu da conta",
+      description: "Agora você pode criar uma nova conta.",
+    });
+    setEmail("");
+    setPassword("");
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,7 +58,22 @@ const Cadastro = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6 py-12">
-      <div className="max-w-sm w-full space-y-8">
+      <div className="max-w-sm w-full space-y-6">
+        {user && (
+          <div className="flex justify-end">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={handleSignOut}
+              className="gap-2"
+            >
+              <LogOut className="w-4 h-4" />
+              Sair da conta
+            </Button>
+          </div>
+        )}
+
         <div className="text-center space-y-3">
           <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto">
             <CalendarCheck className="w-8 h-8 text-primary" />
