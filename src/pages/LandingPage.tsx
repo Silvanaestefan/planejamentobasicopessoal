@@ -105,12 +105,8 @@ const LandingPage = () => {
             Seu planejamento pessoal simplificado
           </h1>
 
-          <p className="text-base md:text-lg text-primary font-medium mb-4">
-            Baseado no Ebook Planejamento Básico Pessoal
-          </p>
-          
           <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-            Organize suas metas, tarefas e finanças em um só lugar.
+            Organize suas metas, tarefas e finanças em um só lugar. Baseado no Ebook Planejamento Básico Pessoal.
           </p>
 
           <div className="flex justify-center mb-10">
@@ -133,8 +129,6 @@ const LandingPage = () => {
 
           <p className="mt-6 text-sm text-muted-foreground">
             Plano único: <span className="font-semibold text-primary">R$ 9,90/mês</span>
-            <br />
-            <span className="text-xs">Pagamento processado pela Google Play Store</span>
           </p>
         </div>
       </section>
