@@ -126,6 +126,10 @@ const LandingPage = () => {
               <span>Seus dados seguros</span>
             </div>
           </div>
+
+          <p className="mt-6 text-sm text-muted-foreground">
+            Plano único: <span className="font-semibold text-primary">R$ 5,16/mês</span>
+          </p>
         </div>
       </section>
 
