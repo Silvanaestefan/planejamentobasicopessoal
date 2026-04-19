@@ -59,7 +59,7 @@ const LandingPage = () => {
               Entrar
             </Button>
             <Button onClick={() => navigate("/cadastro")}>
-              Criar Conta Grátis
+              Criar Conta
             </Button>
           </div>
 
@@ -86,7 +86,7 @@ const LandingPage = () => {
                 Entrar
               </Button>
               <Button className="w-full" onClick={() => navigate("/cadastro")}>
-                Criar Conta Grátis
+                Criar Conta
               </Button>
             </div>
           </div>
@@ -126,6 +126,10 @@ const LandingPage = () => {
               <span>Seus dados seguros</span>
             </div>
           </div>
+
+          <p className="mt-6 text-sm text-muted-foreground">
+            Plano único: <span className="font-semibold text-primary">R$ 5,16/mês</span>
+          </p>
         </div>
       </section>
 
