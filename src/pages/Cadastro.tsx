@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
-import { CalendarCheck, Eye, EyeOff } from "lucide-react";
+import { CalendarCheck, Eye, EyeOff, LogOut } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const Cadastro = () => {
@@ -12,9 +12,19 @@ const Cadastro = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { signUp } = useAuth();
+  const { signUp, signOut, user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  const handleSignOut = async () => {
+    await signOut();
+    toast({
+      title: "Você saiu da conta",
+      description: "Agora você pode criar uma nova conta.",
+    });
+    setEmail("");
+    setPassword("");
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
