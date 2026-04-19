@@ -58,7 +58,22 @@ const Cadastro = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6 py-12">
-      <div className="max-w-sm w-full space-y-8">
+      <div className="max-w-sm w-full space-y-6">
+        {user && (
+          <div className="flex justify-end">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={handleSignOut}
+              className="gap-2"
+            >
+              <LogOut className="w-4 h-4" />
+              Sair da conta
+            </Button>
+          </div>
+        )}
+
         <div className="text-center space-y-3">
           <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto">
             <CalendarCheck className="w-8 h-8 text-primary" />
