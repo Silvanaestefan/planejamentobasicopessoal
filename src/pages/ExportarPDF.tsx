@@ -507,6 +507,7 @@ const ExportarPDF = () => {
         <SubscriptionGate
           onProceed={handleGateProceed}
           generating={generating}
+          onClose={() => setShowGate(false)}
         />
       )}
 
