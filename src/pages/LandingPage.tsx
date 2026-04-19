@@ -128,7 +128,9 @@ const LandingPage = () => {
           </div>
 
           <p className="mt-6 text-sm text-muted-foreground">
-            Plano único: <span className="font-semibold text-primary">R$ 5,16/mês</span>
+            Plano único: <span className="font-semibold text-primary">R$ 9,90/mês</span>
+            <br />
+            <span className="text-xs">Pagamento processado pela Google Play Store</span>
           </p>
         </div>
       </section>
