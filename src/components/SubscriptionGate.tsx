@@ -29,7 +29,7 @@ const SubscriptionGate = ({ onProceed, generating, onClose }: SubscriptionGatePr
             <div>
               <h3 className="text-xl font-bold text-foreground">Assinar o Plano</h3>
               <p className="text-3xl font-bold text-primary mt-2">
-                R$ 5,16<span className="text-sm font-normal text-muted-foreground">/mês</span>
+                R$ 9,90<span className="text-sm font-normal text-muted-foreground">/mês</span>
               </p>
               <p className="text-sm text-muted-foreground mt-1">
                 Acesso completo ao app e download de PDFs ilimitados
@@ -60,7 +60,7 @@ const SubscriptionGate = ({ onProceed, generating, onClose }: SubscriptionGatePr
               ) : (
                 <Crown className="w-5 h-5 mr-2" />
               )}
-              Assinar por R$ 5,16/mês
+              Assinar por R$ 9,90/mês
             </Button>
           </CardContent>
         </Card>
