@@ -171,7 +171,7 @@ const Mensal = () => {
           >
             Voltar
           </Button>
-          <Button onClick={() => navigate("/anual")}>
+          <Button onClick={() => navigate("/cardapio-semanal")}>
             Continuar
           </Button>
         </div>
