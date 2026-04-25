@@ -11,6 +11,7 @@ const pages = [
   { path: "/horario-semanal", label: "Horário" },
   { path: "/planilha-financeira", label: "Finanças" },
   { path: "/mensal", label: "Mensal" },
+  { path: "/cardapio-semanal", label: "Cardápio" },
   { path: "/anual", label: "Anual" },
   { path: "/festas", label: "Festas" },
   { path: "/documentos", label: "Docs" },

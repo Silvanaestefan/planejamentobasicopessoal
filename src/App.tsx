@@ -15,6 +15,7 @@ import Rotina from "./pages/Rotina";
 import HorarioSemanal from "./pages/HorarioSemanal";
 import PlanilhaFinanceira from "./pages/PlanilhaFinanceira";
 import Mensal from "./pages/Mensal";
+import CardapioSemanal from "./pages/CardapioSemanal";
 import Anual from "./pages/Anual";
 import Festas from "./pages/Festas";
 import Documentos from "./pages/Documentos";
@@ -50,6 +51,7 @@ const App = () => (
               <Route path="/horario-semanal" element={<ProtectedRoute><HorarioSemanal /></ProtectedRoute>} />
               <Route path="/planilha-financeira" element={<ProtectedRoute><PlanilhaFinanceira /></ProtectedRoute>} />
               <Route path="/mensal" element={<ProtectedRoute><Mensal /></ProtectedRoute>} />
+              <Route path="/cardapio-semanal" element={<ProtectedRoute><CardapioSemanal /></ProtectedRoute>} />
               <Route path="/anual" element={<ProtectedRoute><Anual /></ProtectedRoute>} />
               <Route path="/festas" element={<ProtectedRoute><Festas /></ProtectedRoute>} />
               <Route path="/documentos" element={<ProtectedRoute><Documentos /></ProtectedRoute>} />
